@@ -1,6 +1,6 @@
 module.exports = {
-  content: ['./build/*.html'],
-  theme: {
+  content: ['./Client/**/*.{js,jsx,ts,tsx}'],
+  theme: {  
     extend: {},
   },
   variants: {
