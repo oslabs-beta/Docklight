@@ -1,7 +1,11 @@
 module.exports = {
   content: ['./Client/**/*.{js,jsx,ts,tsx}'],
   theme: {  
-    extend: {},
+    extend: {
+      colors: {
+        'tailwind': '#0B1121',
+      }
+    },
   },
   variants: {
     extend: {},
