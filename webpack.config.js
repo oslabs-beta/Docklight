@@ -49,7 +49,9 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js']
   },
   devServer: {
-    proxy: {},
+    proxy: {
+      '/cont**': 'http://localhost:3000'
+    },
     compress: true,
     port: 8080,
   }
