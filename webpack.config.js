@@ -8,7 +8,7 @@ module.exports = {
       template: path.resolve(__dirname, './Client/index.html'),
       filename: 'index.html',
     })],
-  entry: './Client/index.tsx',
+  entry: './Client/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',

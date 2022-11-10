@@ -2,7 +2,7 @@
   "name": "docklight",
   "version": "1.0.0",
   "description": "Docker metrics for container",
-  "main": "index.tsx",
+  "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production nodemon server/server.js",
     "build": "NODE_ENV=production webpack",

@@ -8,7 +8,7 @@ import './style.css';
 //will load containers -- nav bar on left stays persistent all throughout
 export const App = () => {
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       <Navbar/>
       <Routes>
         <Route path='/' element={<Homepage/>} />
