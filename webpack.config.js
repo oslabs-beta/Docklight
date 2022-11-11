@@ -11,6 +11,7 @@ module.exports = {
   entry: './Client/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
     filename: 'bundle.js',
   },
   devtool: 'eval-source-map',
@@ -50,7 +51,7 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/cont**': 'http://localhost:3000'
+      '/cont': 'http://localhost:3000'
     },
     compress: true,
     port: 8080,

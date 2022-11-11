@@ -2,61 +2,48 @@ const express = require('express');
 const router = express.Router();
 const util = require('util');
 const { spawn }  = require('child_process');
+const exec = util.promisify(require('child_process').exec);
 
-const dockerStat = spawn('docker', ['stats', '--format="{{json .}}"']);
-
-// const emitSSE = (res, id, data) =>{
-//     res.write("data: " + data + '\n\n');
-//     res.flush()
-//   }
-  
-//   const handleSSE = (req, res) =>{
-//     res.writeHead(200, {
-//       'Content-Type': 'text/event-stream',
-//       'Cache-Control': 'no-cache',
-//       'Connection': 'keep-alive'
-//     });
-//     const id = (new Date()).toLocaleTimeString();
-//     // Sends a SSE every 3 seconds on a single connection.
-//     setInterval(function() {
-//       emitSSE(res, id, (new Date()).toLocaleTimeString());
-//     }, 3000);
-  
-//     emitSSE(res, id, (new Date()).toLocaleTimeString());
-//   }
-  
+//const dockerStat = spawn('docker', ['stats', '--format="{{json .}}"']);
 
 router.get('/', (req, res) => {
-    res.send('hello from container route');
-})
+  res.send('hello from container route');
+});
 
 
-//constream, handledockerStatRequest
-    //set the rules for the request
-    //call the dockerstatstdOut
-        //emit appropriate data in the appropriate formate
 
-const dockerStatRequest = (req, res) => {
-    res.writeHead(200, {
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive'
-      });
-      dockerStat.stdout.on('data', data => {
-        // const output = [];
-        // const dockerStats = data.trim;
-        // const objs = dockerStats.split('\n');
-        // for (let i = 0; i < objs.length; i++) {
-        //   output.push(JSON.parse(objs[i]));
-        // }
-        // return output;
-        // console.log(`${data}`);
-        // res.write('data: ' + data + '\n\n');
-      });
-      dockerStat.stderr.on('data', data => {
-        console.log(`stderr: ${data}`);
-    });
-}
+const dockerStatRequest = async (req, res, next) => {
+  const writeStats = (data) => {
+    data = JSON.stringify(data);
+    res.write('data: ' + data + '\n\n');
+  };
+  const parseData = (stdout) => {
+    const containers = [];
+    const dockerStats = stdout.trim();
+  
+    const conts = dockerStats.split('\n');
+  
+    for (let i = 0; i < conts.length; i++) {
+      containers.push(JSON.parse(conts[i]));
+    }
+    return containers;
+  }
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+  });
+  try {
+    const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
+    console.log(stdout);
+    const newData = parseData(stdout);
+    setInterval(() => writeStats(newData), 1000);
+  }
+  catch(err) {
+    next(err);
+  }
+      
+};
 
 router.get('/constream', dockerStatRequest);
 
@@ -66,14 +53,12 @@ router.get('/constream', dockerStatRequest);
 //     try {
 //         dockerStat.stdout.on('data', data => {
 //             console.log(`${data}`);
-//             res.write(`${data}`);
-//             res.end()
+//             res.write(`data: ${data} \n\n`);
 //         })
 
 //         dockerStat.stderr.on('data', data => {
 //             console.log(`stderr: ${data}`);
-//         });
-        
+
 
 //     }
 //     catch(err) {

@@ -4,6 +4,8 @@ const path = require('path');
 const cors = require('cors');
 const containerRoute = require('./routes/ContainerRoute');
 
+const PORT = 3000;
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -33,6 +35,6 @@ app.use((err, req, res, next) => {
   res.send('Global error handler');
 });
 
-app.listen(3000, () => {
-  console.log('server listening at 3000');
+app.listen(PORT, () => {
+  console.log(`server listening at ${PORT}`);
 });
