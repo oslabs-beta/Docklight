@@ -12,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
+    publicPath: '/'
   },
   devtool: 'eval-source-map',
   module: {
@@ -52,5 +53,6 @@ module.exports = {
     proxy: {},
     compress: true,
     port: 8080,
+    historyApiFallback: true
   }
 };

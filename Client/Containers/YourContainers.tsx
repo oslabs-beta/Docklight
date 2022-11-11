@@ -22,11 +22,11 @@ const dummyContainer = {
 export default function YourContainers() {
   return (
     <>
-      <header className='flex h-1/5'>
+      <header className='flex h-[5%]'>
         <Active />
         <SearchContainers />
       </header>
-      <div className='grid overflow-auto h-4/5'>
+      <div className='grid overflow-auto h-[95%]'>
       <Container />
         <Container />
         <Container />
@@ -36,10 +36,6 @@ export default function YourContainers() {
         <Container /><Container />
         <Container />
         <Container />
-        <Container /><Container />
-        <Container />
-        <Container />
-        <Container /><Container />
       </div>
     </>
     
