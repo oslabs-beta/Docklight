@@ -6,6 +6,12 @@ import YourContainers from './YourContainers';
 import Team from '../Components/Team';
 
 export default function Navbar() {
+  const sse = new EventSource('http://localhost:3000/cont/constream');
+  sse.onmessage = (event) => {
+    console.log(JSON.parse(event.data))
+  }
+
+
   return (
     <div className="flex flex-col items-center text-3xl font-bold underlined bg-blue-800 w-1/5 max-w-xs">
       <header className="mt-5">
