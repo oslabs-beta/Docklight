@@ -3,16 +3,16 @@ const { spawn }  = require('child_process');
 const exec = util.promisify(require('child_process').exec);
 
 const parseData = (stdout) => {
-    const containers = [];
-    const dockerStats = stdout.trim();
+  const containers = [];
+  const dockerStats = stdout.trim();
       
-    const conts = dockerStats.split('\n');
+  const conts = dockerStats.split('\n');
       
-    for (let i = 0; i < conts.length; i++) {
-      containers.push(JSON.parse(conts[i]));
-    }
-    return containers;
-  };
+  for (let i = 0; i < conts.length; i++) {
+    containers.push(JSON.parse(conts[i]));
+  }
+  return containers;
+};
 
 module.exports = {
     
@@ -33,7 +33,10 @@ module.exports = {
       setInterval(() => writeStats(newData), 1000);
     }
     catch(err) {
-      return next(err);
+      return next({
+        log: `error ${err} occurred in dockerStats`,
+        message: {err: 'an error occured'}
+      });
     }        
   },
 
@@ -56,19 +59,25 @@ module.exports = {
       setInterval(() => writeStats(newData), 1000);
     }
     catch(err) {
-      return next(err);
+      return next({
+        log: `error ${err} occured in request by ID`,
+        message: {err: 'an error occured'}
+      });
     }        
   },
 
   dockerContainers: async (req, res, next) => {
     try {
-        const { stdout } = await exec('docker ps --all --format "{{json .}}"');
-        const newData = parseData(stdout);
-        res.locals.containers = newData;
-        return next();
+      const { stdout } = await exec('docker ps --all --format "{{json .}}"');
+      const newData = parseData(stdout);
+      res.locals.containers = newData;
+      return next();
     }
     catch(err) {
-        return next(err);
+      return next({
+        log: `error ${err} occurred in dockerContainers`,
+        message: {err: 'an error occured'}
+      });
     }
   }
 };
