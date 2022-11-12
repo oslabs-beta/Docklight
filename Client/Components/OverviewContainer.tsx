@@ -63,23 +63,23 @@ for(let i = 0; i < containersArray.length; i++){
 // we would need to loop through the array of containers
 const element = containersArray[i];
 //string to be reasigned after we check the health of the container
-let health:string;
+let health:string = 'Good Shape'
+let danger:string = 'border-blue-400'
 //removing everything and leaving only numbers
-const cpu = element.CPUPerc.replace(/\D+/g, '').slice(0, 2);
-const memory = element.CPUPerc.replace(/\D+/g, '').slice(0, 2);
+const cpu = Number(element.CPUPerc.replace(/\D+/g, '').slice(0, 2));
+const memory = Number(element.CPUPerc.replace(/\D+/g, '').slice(0, 2));
 
-console.log("num", cpu)
-
-
-// if(Number(numberCpu[0] + numberCpu[1]) > 75 || ){
-//     health = 'Bad Shape'
-// }
+if(cpu > 75 || memory > 75) {
+    health = 'Bad Shape'
+    danger = 'border-red-400'
+};
 
 
 
-containers.push(<div key={i} id={`containerNum${i}`} className='justify-self-center border-4 border-blue-400 rounded-md max-h-[5%] min-h-[70%] min-w-[100%]'>
-<h6>Container Name: {containersArray[i].Name}</h6>  
-<span>Container Health: {} </span>
+
+containers.push(<div key={i} id={`containerNum${i}`} className={`justify-self-center border-4 ${danger} rounded-md max-h-[5%] min-h-[70%] min-w-[100%]`}>
+<h6 className='justify-self-center' >Container Name: {containersArray[i].Name}</h6>  
+<span className='justify-self-center'>Container Health: {health} </span>
 </div> )
  //checking for cpu and memory 
   //if the cpu or memory are over 65% 
