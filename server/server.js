@@ -15,26 +15,28 @@ app.use((req, res, next) => {
   next();
 });
 
+//middleware to parse incoming requests
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+//send the main HTML to the client
 app.get('/', (req, res) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../Client/index.html'));
 });
 
-
-
+//send any requests from /cont endpoint through this route
 app.use('/cont', containerRoute);
 
-
-
+//send all static files through the build route
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
+//404 error handler
 app.use('*', (req, res) => {
   res.status(404).send('Not found');
 });
 
+//global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
