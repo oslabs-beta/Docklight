@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+
+//will need to render individual components for CPU, MEM & Network IO
 export default function Container() {
   return (
     <div className='justify-self-center mt-[50px] border-4 border-blue-400 rounded-md min-h-[350px] min-w-[900px]'>
