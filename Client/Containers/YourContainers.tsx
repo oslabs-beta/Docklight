@@ -13,7 +13,7 @@ const dummyContainer = {
   mem: 0.17,
   netIO: 29,
   netIOB: 1000
-}
+};
 
 //should render the active/inactive filter buttons/component (will leave functionality for when we have components rendering)
 //should render the search for container component
@@ -22,7 +22,7 @@ const dummyContainer = {
 export default function YourContainers() {
   return (
     <>
-      <header className='flex h-[5%]'>
+      <header className='flex h-[5%] border-b-2 border-black'>
         <Active />
         <SearchContainers />
       </header>
@@ -38,6 +38,5 @@ export default function YourContainers() {
         <Container />
       </div>
     </>
-    
   )
 }
