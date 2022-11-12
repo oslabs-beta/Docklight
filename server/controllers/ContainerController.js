@@ -1,6 +1,6 @@
-const util = require('util');
+const { promisify } = require('util');
 const { spawn }  = require('child_process');
-const exec = util.promisify(require('child_process').exec);
+const exec = promisify(require('child_process').exec);
 
 const parseData = (stdout) => {
   const containers = [];
@@ -14,10 +14,14 @@ const parseData = (stdout) => {
   return containers;
 };
 
+
 module.exports = {
     
   dockerStatRequest: async (req, res, next) => {
-    const writeStats = (data) => {
+    const writeStats = async () => {
+      const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
+      console.log(stdout);
+      let data = parseData(stdout);
       data = JSON.stringify(data);
       res.write('data: ' + data + '\n\n');
     };
@@ -27,10 +31,7 @@ module.exports = {
       'Connection': 'keep-alive',
     });
     try {
-      const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
-      console.log(stdout);
-      const newData = parseData(stdout);
-      setInterval(() => writeStats(newData), 1000);
+      setInterval(() => writeStats(), 1000);
     }
     catch(err) {
       return next({
@@ -41,7 +42,10 @@ module.exports = {
   },
 
   dockerStatRequestById: async (req, res, next) => {
-    const writeStats = (data) => {
+    const writeStats = async () => {
+      const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
+      console.log(stdout);
+      let data = parseData(stdout);
       data = JSON.stringify(data);
       res.write('data: ' + data + '\n\n');
     };
@@ -53,10 +57,7 @@ module.exports = {
       'Connection': 'keep-alive',
     });
     try {
-      const { stdout } = await exec(`docker stats --no-stream --format "{{json .}}" ${id}`);
-      console.log(stdout);
-      const newData = parseData(stdout);
-      setInterval(() => writeStats(newData), 1000);
+      setInterval(() => writeStats(), 1000);
     }
     catch(err) {
       return next({
