@@ -15,15 +15,12 @@ export const App = () => {
       <Navbar/>
       <div className="w-screen">
         <Routes>
-          <Route path='/' element={<YourContainers/>} />
+          <Route path='/' element={<YourContainers />} />
           <Route path='/DataOverview' element={<DataOverview/>} />
         </Routes>
       </div>
     </div>
   );
 }
-// const onlyFunc = {
-//   App,
-// }
 
 export default App;
