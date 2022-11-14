@@ -13,7 +13,6 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
     filename: 'bundle.js',
-    publicPath: '/'
   },
   devtool: 'eval-source-map',
   module: {
@@ -48,7 +47,7 @@ module.exports = {
       }]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   devServer: {
     proxy: {

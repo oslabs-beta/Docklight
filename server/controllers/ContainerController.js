@@ -47,10 +47,10 @@ module.exports = {
   //function that returns a single container by ID as an object in an actively updating array through an event source interval
   dockerStatRequestById: async (req, res, next) => {
     //grabs ID from url query
-    const { id } = req.query.id;
+    const { id } = req.query;
     const writeStats = async () => {
       const { stdout } = await exec(`docker stats --no-stream --format "{{json .}}" ${id}`);
-      console.log(stdout);
+      console.log('hi from request by ID', stdout);
       let data = parseData(stdout);
       data = JSON.stringify(data);
       res.write('data: ' + data + '\n\n');

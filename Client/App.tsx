@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Navbar from './Containers/Navbar';
-import YourContainers from './Containers/YourContainers'
+import YourContainers from './Containers/YourContainers.jsx'
 import Homepage from './Components/Homepage';
 import { Route, Routes } from 'react-router-dom';
 // import './Styles/App.css';
