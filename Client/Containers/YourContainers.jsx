@@ -1,7 +1,9 @@
 import * as React from 'react';
-import Active from '../Components/Active'
-import Container from '../Components/Container';
+const { useEffect, useState } = React;
+import Active from '../Components/Active';
+import Container from '../Components/Container.jsx';
 import SearchContainers from '../Components/SearchContainers';
+import axios from 'axios';
 
 //cpuUsage is a percentage already, as is mem
 const dummyContainer = {
@@ -19,7 +21,18 @@ const dummyContainer = {
 //should render the search for container component
 //should render each individual Container, for now will render a dummy container with data being passed in
 
-export default function YourContainers() {
+export default function YourContainers(props) {
+  
+  const [contArray, setList] = useState([]);
+
+  useEffect(() => {
+    axios('cont/list')
+    .then(res => {
+      setList(res.data.slice(0));
+    })
+    .catch(err => console.log(err));
+    }, []);
+
   return (
     <>
       <header className='flex h-[5%] border-b-2 border-black'>
@@ -27,16 +40,8 @@ export default function YourContainers() {
         <SearchContainers />
       </header>
       <div className='grid overflow-auto h-[95%]'>
-      <Container />
-        <Container />
-        <Container />
-        <Container /><Container />
-        <Container />
-        <Container />
-        <Container /><Container />
-        <Container />
-        <Container />
+        {contArray.map(container => <Container key={`c${container.ID}`} info={container} /> )}
       </div>
     </>
-  )
+  );
 }
