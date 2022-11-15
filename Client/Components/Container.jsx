@@ -16,19 +16,11 @@ export default function Container(props) {
     };
     sse.onerror = () => sse.close;
     console.log('data info', dataInfo);
+    // return () => {
+    //   sse.close;
+    // };
   }, []);
 
-  /* 
-    const getStats = async () => {
-      try {
-        sse.onmessage = (event) => {
-          const data = JSON.parse(event.data);
-          //setData(data);
-        }
-      catch (error)
-      }
-    } 
-  */
 
   return (
     <div className='justify-self-center mt-[50px] border-4 border-blue-400 rounded-md min-h-[350px] min-w-[900px]'>
@@ -43,8 +35,14 @@ export default function Container(props) {
           <StatChart data={ dataInfo[0] ? dataInfo[0].CPUPerc : 0 } />
 
         </div>
-        <h1>MEM Usage: {dataInfo[0] ? dataInfo[0].MemPerc : 0}</h1>
-        <h1>Network I/O: {dataInfo[0] ? dataInfo[0].NetIO : 0}</h1>
+        <div>
+          <h1>MEM Usage: {dataInfo[0] ? dataInfo[0].MemPerc : 0}</h1>
+          <StatChart data={dataInfo[0] ? dataInfo[0].MemPerc : 0} />
+        </div>
+        <div>
+          <h1>Network I/O: {dataInfo[0] ? dataInfo[0].NetIO : 0}</h1>
+          <StatChart data={dataInfo[0] ? dataInfo[0].NetIO : 0} />
+        </div>
       </div>
     </div>
   );
