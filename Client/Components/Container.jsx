@@ -14,7 +14,8 @@ export default function Container(props) {
       const data = JSON.parse(event.data);
       setData(data);
     };
-  
+    sse.onerror = () => sse.close;
+    console.log('data info', dataInfo);
   }, []);
 
   /* 
