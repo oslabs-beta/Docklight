@@ -45,7 +45,7 @@ app.use((err, req, res, next) => {
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log('Global Error Handler:', errorObj.log);
-  return res.status(errorObj.status).json(errorObj.message);;
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 app.listen(PORT, () => {
