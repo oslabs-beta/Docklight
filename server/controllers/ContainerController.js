@@ -31,7 +31,8 @@ module.exports = {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
-    });
+    },
+    );
     try {
       //interval that updates the data and sends it over
       setInterval(() => writeStats(), 1000);
@@ -61,6 +62,11 @@ module.exports = {
       'Connection': 'keep-alive',
     });
     try {
+      res.on('close', () => {
+        console.log('client dropped me');
+        //Any other clean up
+        res.end();
+      });
       setInterval(() => writeStats(), 1000);
     }
     catch(err) {
