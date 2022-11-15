@@ -4,6 +4,7 @@ import Active from '../Components/Active';
 import Container from '../Components/Container.jsx';
 import SearchContainers from '../Components/SearchContainers';
 import axios from 'axios';
+import InactiveContainers from '../Components/InactiveContainers';
 
 //cpuUsage is a percentage already, as is mem
 const dummyContainer = {
@@ -22,25 +23,47 @@ const dummyContainer = {
 //should render each individual Container, for now will render a dummy container with data being passed in
 
 export default function YourContainers(props) {
-  
+
   const [contArray, setList] = useState([]);
+  const [inactiveList, setInactiveList] = useState([]);
+  const [inactiveDisplay, setInactiveDisplay] = useState(false);
 
   useEffect(() => {
     axios('cont/list')
-    .then(res => {
-      setList(res.data.slice(0));
-    })
-    .catch(err => console.log(err));
-    }, []);
+      .then(res => {
+        console.log('this is res.data -> ', res.data);
+        const runningArr = [];
+        const inactiveArr = [];
+        res.data.forEach(el => {
+          if (el.State === 'running') runningArr.push(el);
+          else inactiveArr.push(el);
+        });
+        setList(runningArr);
+        setInactiveList(inactiveArr);
+        // setList(res.data.slice(0));
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  function inactiveButton(){
+    if (inactiveDisplay === false) setInactiveDisplay(true);
+  }
+
+  function activeButton(){
+    if (inactiveDisplay === true) setInactiveDisplay(false);
+  }
 
   return (
     <>
       <header className='flex h-[5%] border-b-2 border-black'>
-        <Active />
+        <Active inactive={inactiveButton} active={activeButton} />
         <SearchContainers />
       </header>
       <div className='grid overflow-auto h-[95%]'>
-        {contArray.map(container => <Container key={`c${container.ID}`} info={container} /> )}
+        {inactiveDisplay ? 
+          inactiveList.map(container => <InactiveContainers key={`c${container.ID}`} info={container} />) :
+          contArray.map(container => <Container key={`c${container.ID}`} info={container} /> )
+        }
       </div>
     </>
   );
