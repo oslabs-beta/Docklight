@@ -7,22 +7,23 @@ export default function StatChart(props) {
   let { data } = props;
   data = parseFloat(data) * 10;
 
-  const [chartData, updateChart] = useState({
+  const [chartData, setChartData] = useState({
+    labels: ['Usage', 'Free Space'],
     datasets: [{
-      labels: ['CPU use', 'total'],
-      data: [data, 100],
+      data: [data, (100 - data)],
       backgroundColor: [
-        'rgb(255, 99, 132)',
+        'rgb(255, 99, 500)',
         'rgb(54, 162, 235)',
       ]
     }],
   });
   
   useEffect(() => {
-    updateChart({
+    setChartData({
+      labels: ['Usage', 'Free space'],
       datasets: [{
-        labels: ['CPU use', 'total'],
-        data: [data, 100],
+
+        data: [data, (100 - data)],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
@@ -31,16 +32,6 @@ export default function StatChart(props) {
     });
   }, [data]);
 
-  // const chartData = {
-  //   datasets: [{
-  //     labels: ['CPU use', 'total'],
-  //     data: [data, 100],
-  //     backgroundColor: [
-  //       'rgb(255, 99, 132)',
-  //       'rgb(54, 162, 235)',
-  //     ]
-  //   }],
-  // };
   return (
     <div>
       <Doughnut 
