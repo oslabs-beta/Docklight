@@ -8,10 +8,6 @@ export default function Container(props) {
   const { ID, Names } = props.info;
   const sse = new EventSource(`http://localhost:3000/cont/constream/?id=${ID}`);
   const [dataInfo, setData] = useState([]);
-  
-  const CPU = useRef(0);
-  const MEM = useRef(0);
-  const IO = useRef(0);
 
   useEffect(() => {
     sse.onmessage = (event) => {
@@ -32,21 +28,6 @@ export default function Container(props) {
       }
     } 
   */
-
-  useEffect(() => {
-    sse.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      //setData(data);
-      console.log('heres data', data)
-      console.log('heres CPU', CPU)
-      console.log('CPU current', CPU.current)
-      CPU.current = data[0].CPUPerc;
-      MEM.current = data[0].MemPerc;
-      IO.current = data[0].NetIO;
-    };
-    sse.onerror = () => sse.close;
-    // console.log('data info', dataInfo);
-  });
 
   return (
     <div className='justify-self-center mt-[50px] border-4 border-blue-400 rounded-md min-h-[350px] min-w-[900px]'>
