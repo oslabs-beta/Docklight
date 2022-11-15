@@ -15,19 +15,7 @@ export default function Container(props) {
       setData(data);
     };
   
-  }, []);
-
-  /* 
-    const getStats = async () => {
-      try {
-        sse.onmessage = (event) => {
-          const data = JSON.parse(event.data);
-          //setData(data);
-        }
-      catch (error)
-      }
-    } 
-  */
+  });
 
   return (
     <div className='justify-self-center mt-[50px] border-4 border-blue-400 rounded-md min-h-[350px] min-w-[900px]'>
