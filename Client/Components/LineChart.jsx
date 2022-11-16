@@ -1,5 +1,5 @@
 import * as React from "react";
-const { useEffect, useState, useRef } = React;
+const { useEffect, useState, useRef, useMemo, useCallback } = React;
 import Chart from "chart.js/auto";
 import "chartjs-adapter-luxon";
 import { Line } from "react-chartjs-2";
@@ -105,6 +105,8 @@ export default function LineChart(props) {
               type: "realtime",
               realtime: {
                 duration: 20000,
+                frameRate: 5,
+                delay: 1000,
               },
             },
           },

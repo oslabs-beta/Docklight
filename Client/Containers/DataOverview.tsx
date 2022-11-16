@@ -139,7 +139,7 @@ export default function DataOverview() {
   return (
     <>
       <div className="text-center p-5 max-h-[10%] items-center text-3xl font-bold underlined">
-        <header className="content-center">dataoverview</header>
+        <header className="content-center">Data Overview</header>
       </div>
       <div className="grid overflow-auto h-[70%]">
         {containersArray.length === 0 ? (

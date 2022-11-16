@@ -19,7 +19,7 @@ export default function Navbar() {
        Docklight 
       </header>
       <div className='flex h-screen flex-col place-content-center space-y-8 text-center'>
-        <Link to="/Homepage"className='bg-slate-200 rounded-md border-black border-2'> <button className=''>Home Page</button></Link>
+        <Link to="/"className='bg-slate-200 rounded-md border-black border-2'> <button className=''>Home Page</button></Link>
         <Link to="/DataOverview"className='bg-slate-200 rounded-md border-black border-2'> <button className=''>Data Overview</button></Link>
         <Link to="/YourContainers"className='bg-slate-200 rounded-md border-black border-2' ><button className=''>Your Containers</button></Link>
         <Link to="/Team" className='bg-slate-200 rounded-md border-black border-2'> <button className=''> Team</button></Link>
