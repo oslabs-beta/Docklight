@@ -2,6 +2,7 @@ import * as React from "react";
 import OverviewContainer from "../Components/OverviewContainer";
 import Notifications from "../Components/Notifications";
 
+
 export default function DataOverview() {
   const containersArray = [
     {
@@ -103,6 +104,94 @@ export default function DataOverview() {
       NetIO: "1.08kB / 0B",
       PIDs: "17",
     },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "0.00%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu125125",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "38%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu125",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "90%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu1347",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "0.00%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu1458",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "90%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu17345",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "0.00%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu1834513",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "90%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu181345",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
+    {
+      BlockIO: "0B / 0B",
+      CPUPerc: "90%",
+      Container: "3e2836e39536",
+      ID: "3e2836e39536",
+      MemPerc: "0.15%",
+      MemUsage: "11.57MiB / 7.475GiB",
+      Name: "crazy_tu177777",
+      NetIO: "1.08kB / 0B",
+      PIDs: "17",
+    },
   ];
   const notifs = [];
   const containers = [];
@@ -147,11 +236,16 @@ export default function DataOverview() {
           <header> No container to show</header>
           </div>
         ) : (
-          containers
+          <div className="grid overflow-auto h-[70%]">
+          {containers}
+          </div>
         )}
         <div>
+          <div className="resize overflow-auto border-t-4 h-[25%] border-blue-400"> 
         <h1 className='font-extrabold text-lg p-1'>Container Notifications</h1>
           {notifs.map((str:any) => {return <h1>{str}</h1>})}
+        </div>
+       
         </div>
     </>
   );

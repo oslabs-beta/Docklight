@@ -46,6 +46,7 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
+    "react-page-split": "^0.0.7",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "webpack": "^5.74.0",
