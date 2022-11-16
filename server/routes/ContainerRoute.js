@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 router.get('/constream/', containerController.dockerStatRequestById);
 
-router.get('/constream', containerController.dockerStatRequest);
+router.get('/fullstream', containerController.dockerStatRequest);
 
 router.get('/list', containerController.dockerContainers, (req, res) => {
   res.status(200).json(res.locals.containers);
