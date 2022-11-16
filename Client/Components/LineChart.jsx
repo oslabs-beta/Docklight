@@ -1,9 +1,9 @@
-import * as React from 'react';
-const { useEffect, useState, useRef } = React;
-import Chart from 'chart.js/auto';
-import 'chartjs-adapter-luxon';
-import { Line } from 'react-chartjs-2';
-import ChartStreaming from 'chartjs-plugin-streaming';
+import * as React from "react";
+const { useEffect, useState, useRef, useMemo, useCallback } = React;
+import Chart from "chart.js/auto";
+import "chartjs-adapter-luxon";
+import { Line } from "react-chartjs-2";
+import ChartStreaming from "chartjs-plugin-streaming";
 
 Chart.register(ChartStreaming);
 
@@ -108,6 +108,8 @@ export default function LineChart(props) {
               type: 'realtime',
               realtime: {
                 duration: 20000,
+                frameRate: 5,
+                delay: 1000,
               },
             },
           },
