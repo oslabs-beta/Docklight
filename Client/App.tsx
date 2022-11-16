@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 // import './Styles/App.css';
 import './style.css';
 import DataOverview from './Containers/DataOverview';
+import Team from './Components/Team';
 
 //currently using font-inter site-wide
 //will load containers -- nav bar on left stays persistent all throughout
@@ -15,8 +16,10 @@ export const App = () => {
       <Navbar/>
       <div className="w-screen">
         <Routes>
-          <Route path='/' element={<YourContainers />} />
+          <Route path='/YourContainers' element={<YourContainers />} />
           <Route path='/DataOverview' element={<DataOverview/>} />
+          <Route path='/Team' element={<Team/>} />
+          <Route path='/*' element={<Homepage/>} />
         </Routes>
       </div>
     </div>
