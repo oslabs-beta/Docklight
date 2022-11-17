@@ -18,31 +18,27 @@ const parseData = (stdout) => {
 module.exports = {
 
   //middleware function that returns an actively updating array of all currently running containers through an event source interval
-  dockerStatRequest: async (req, res, next) => {
+  dockerStatRequest: (req, res, next) => {
     //opens CLI command, grabs the return value, parses it and sends it back through the stream
-    const writeStats = async () => {
-      const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
-      console.log(stdout);
-      let data = parseData(stdout);
-      data = JSON.stringify(data);
-      res.write('data: ' + data + '\n\n');
-    };
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
-    },
-    );
-    try {
-      //interval that updates the data and sends it over
-      setInterval(() => writeStats(), 1500);
-    }
-    catch(err) {
-      return next({
-        log: `error ${err} occurred in dockerStats`,
-        message: {err: 'an error occured'}
-      });
-    }        
+    });
+    const interval = setInterval(async () => {
+      const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
+      console.log('hi from request', stdout);
+      let data = parseData(stdout);
+      data = JSON.stringify(data);
+      res.write('data: ' + data + '\n\n');
+    }, 1500);
+
+    res.on('close', () => {
+      console.log('client dropped me :((');
+      //Any other clean up
+      clearInterval(interval);
+      res.end();
+    });        
   },
 
   //function that returns a single container by ID as an object in an actively updating array through an event source interval
@@ -52,24 +48,15 @@ module.exports = {
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
     });
-    //counter used to see stream data steps, should end the stream when counter is 1
-    // let counter = 0;
     //grabs ID from url query
     const { id } = req.query;
     const interval = setInterval(async () => {
-      // counter++;
-      // console.log(counter);
-      // if (counter >= 10) {
-      //   clearInterval(interval);
-      //   res.end(); // terminates SSE session
-      //   return;
-      // }
       const { stdout } = await exec(`docker stats --no-stream --format "{{json .}}" ${id}`);
       console.log('hi from request by ID', stdout);
       let data = parseData(stdout);
       data = JSON.stringify(data);
       res.write('data: ' + data + '\n\n');
-    }, 3000);
+    }, 1500);
 
     res.on('close', () => {
       console.log('client dropped me :((');

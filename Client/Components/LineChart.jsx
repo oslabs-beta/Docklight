@@ -11,7 +11,6 @@ export default function LineChart(props) {
   const { data } = props;
   const chart = useRef();
   const dataArr = dataSplit(data);
-  console.log('line chart data', dataArr);
 
   const [chartData, setChartData] = useState({
     datasets: [
@@ -32,12 +31,14 @@ export default function LineChart(props) {
   });
 
   useEffect(() => {
+    console.log('this is data', data);
     const newData = {
       value1: dataArr[0],
       value2: dataArr[1],
       timestamp: new Date(),
     };
     setData(newData);
+    console.log('set data data', newData);
     setChartData((prevState) => ({
       ...prevState,
       datasets: [
@@ -52,6 +53,8 @@ export default function LineChart(props) {
       ],
     }));
   }, [data]);
+
+
 
   function setData(event) {
     chart.current.data.datasets[0].data.push({
@@ -90,10 +93,6 @@ export default function LineChart(props) {
         data={chartData}
         options={{
           plugins: {
-            title: {
-              display: true,
-              text: 'hello',
-            },
             legend: {
               display: true,
               position: 'bottom',
