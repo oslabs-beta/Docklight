@@ -48,7 +48,6 @@ export default function PieChart(props) {
   return (
     <div>
       <Pie 
-          
         data={chartData}
         options={{
           plugins: {
@@ -60,8 +59,10 @@ export default function PieChart(props) {
               display: true,
               position: 'bottom'
             }
-          }}
-        }
+          },
+          maintainAspectRatio: false
+        }}
+        width={'50%'}
       />
     </div>
   );
