@@ -1,14 +1,13 @@
 import * as React from 'react';
 const { useEffect, useState } = React;
 import Chart from 'chart.js/auto';
-import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 
-export default function StatChart(props) {
+export default function PieChart(props) {
   let { data } = props;
-
-
+  
   const [chartData, setChartData] = useState({
-    labels: ['Usage', 'Free Space'],
+    labels: ['Average Usage', 'Free Space'],
     datasets: [{
       data: [data, (100 - data)],
       backgroundColor: [
@@ -17,13 +16,14 @@ export default function StatChart(props) {
       ]
     }],
   });
-  
+    
   useEffect(() => {
-    data = parseFloat(data) * 10;
+    console.log('heres data', data);
+    data = data.reduce((acc, curr) => acc + curr) / data.length;
     setChartData({
       labels: ['Usage', 'Free space'],
       datasets: [{
-
+  
         data: [data, (100 - data)],
         backgroundColor: [
           'rgb(255, 99, 132)',
@@ -33,9 +33,21 @@ export default function StatChart(props) {
     });
   }, [data]);
 
+  function getAverage(array, prop) {
+    let avg;
+    if (!array) {
+      return 0;
+    } else {
+      avg = (array
+        .map(container => container[prop])
+        .reduce((acc, curr) => acc + curr)) / array.length;
+      return avg;
+    }
+  }
+  
   return (
     <div>
-      <Doughnut 
+      <Pie 
         data={chartData}
         options={{
           plugins: {
@@ -44,9 +56,7 @@ export default function StatChart(props) {
               position: 'bottom'
             }
           },
-          maintainAspectRatio: false
         }}
-        width={'30%'}
       />
     </div>
   );

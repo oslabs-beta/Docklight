@@ -35,7 +35,7 @@ module.exports = {
     );
     try {
       //interval that updates the data and sends it over
-      setInterval(() => writeStats(), 1000);
+      setInterval(() => writeStats(), 1500);
     }
     catch(err) {
       return next({

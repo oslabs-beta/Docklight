@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 const { useEffect, useState, useRef, useMemo, useCallback } = React;
-import Chart from "chart.js/auto";
-import "chartjs-adapter-luxon";
-import { Line } from "react-chartjs-2";
-import ChartStreaming from "chartjs-plugin-streaming";
-
+import Chart from 'chart.js/auto';
+import 'chartjs-adapter-luxon';
+import { Line } from 'react-chartjs-2';
+import ChartStreaming from 'chartjs-plugin-streaming';
+Chart.overrides.line.spanGaps = true;
 Chart.register(ChartStreaming);
 
 export default function LineChart(props) {
@@ -14,20 +14,21 @@ export default function LineChart(props) {
   console.log('line chart data', dataArr);
 
   const [chartData, setChartData] = useState({
-    datasets: [{
-      id: 1,
-      label: ['Network Input'],
-      data: [dataArr[0]],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-      ],
-    }, {
-      label: ['Network Output'],
-      data: [dataArr[1]],
-      backgroundColor: [
-        'rgb(255, 99, 000)',
-      ],
-    }],
+    datasets: [
+      {
+        id: 1,
+        label: ['Network Input'],
+        data: [dataArr[0]],
+        backgroundColor: ['rgb(255, 99, 132)'],
+        spanGaps: true
+      },
+      {
+        label: ['Network Output'],
+        data: [dataArr[1]],
+        backgroundColor: ['rgb(255, 99, 000)'],
+        spanGaps: true
+      },
+    ],
   });
 
   useEffect(() => {
@@ -37,22 +38,20 @@ export default function LineChart(props) {
       timestamp: new Date(),
     };
     setData(newData);
-    setChartData(prevState => ({
+    setChartData((prevState) => ({
       ...prevState,
-      datasets: [{
-        ...prevState.datasets[0],
-        backgroundColor: [
-          'rgb(255, 99, 132)',
-        ]
-      },
-      {        
-        ...prevState.datasets[1],
-        backgroundColor: [
-          'rgb(255, 99, 000)',
-        ]
-      }]
+      datasets: [
+        {
+          ...prevState.datasets[0],
+          backgroundColor: ['rgb(255, 99, 132)'],
+        },
+        {
+          ...prevState.datasets[1],
+          backgroundColor: ['rgb(255, 99, 000)'],
+        },
+      ],
     }));
-  }, [dataArr]);
+  }, [data]);
 
   function setData(event) {
     chart.current.data.datasets[0].data.push({
@@ -113,6 +112,11 @@ export default function LineChart(props) {
               },
             },
           },
+          elements: {
+            line: {
+              spanGaps: true
+            }
+          }
         }}
       />
     </div>
