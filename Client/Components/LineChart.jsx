@@ -12,6 +12,7 @@ export default function LineChart(props) {
   const chart = useRef();
   const dataArr = dataSplit(data);
 
+
   const [chartData, setChartData] = useState({
     datasets: [
       {
@@ -30,15 +31,40 @@ export default function LineChart(props) {
     ],
   });
 
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     console.log('this is data', dataArr);
+  //     console.log('hi');
+  //     // const newData = {
+  //     //   value1: dataArr[0],
+  //     //   value2: dataArr[1],
+  //     //   timestamp: new Date(),
+  //     // };
+  //     //setData(newData);
+  //     chart.current.update('quiet')
+  //     setChartData((prevState) => ({
+  //       ...prevState,
+  //       datasets: [
+  //         {
+  //           ...prevState.datasets[0],
+  //           backgroundColor: ['rgb(255, 99, 132)'],
+  //         },
+  //         {
+  //           ...prevState.datasets[1],
+  //           backgroundColor: ['rgb(255, 99, 000)'],
+  //         },
+  //       ],
+  //     }));
+  //   }, 1000);
+  // }, []);
+
   useEffect(() => {
-    console.log('this is data', data);
     const newData = {
       value1: dataArr[0],
       value2: dataArr[1],
       timestamp: new Date(),
     };
     setData(newData);
-    console.log('set data data', newData);
     setChartData((prevState) => ({
       ...prevState,
       datasets: [
@@ -52,6 +78,30 @@ export default function LineChart(props) {
         },
       ],
     }));
+    setInterval(() => {
+      console.log('this is data', dataArr);
+      console.log('hi');
+      // const newData = {
+      //   value1: dataArr[0],
+      //   value2: dataArr[1],
+      //   timestamp: new Date(),
+      // };
+      //setData(newData);
+      setData(newData);
+      setChartData((prevState) => ({
+        ...prevState,
+        datasets: [
+          {
+            ...prevState.datasets[0],
+            backgroundColor: ['rgb(255, 99, 132)'],
+          },
+          {
+            ...prevState.datasets[1],
+            backgroundColor: ['rgb(255, 99, 000)'],
+          },
+        ],
+      }));
+    }, 1000);
   }, [data]);
 
 
