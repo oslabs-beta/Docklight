@@ -46,35 +46,37 @@ module.exports = {
   },
 
   //function that returns a single container by ID as an object in an actively updating array through an event source interval
-  dockerStatRequestById: async (req, res, next) => {
-    //grabs ID from url query
-    const { id } = req.query;
-    const writeStats = async () => {
-      const { stdout } = await exec(`docker stats --no-stream --format "{{json .}}" ${id}`);
-      console.log('hi from request by ID', stdout);
-      let data = parseData(stdout);
-      data = JSON.stringify(data);
-      res.write('data: ' + data + '\n\n');
-    };
+  dockerStatRequestById: (req, res, next) => {
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
     });
-    try {
-      res.on('close', () => {
-        console.log('client dropped me');
-        //Any other clean up
-        res.end();
-      });
-      setInterval(() => writeStats(), 1500);
-    }
-    catch(err) {
-      return next({
-        log: `error ${err} occured in request by ID`,
-        message: {err: 'an error occured'}
-      });
-    }        
+    //counter used to see stream data steps, should end the stream when counter is 1
+    // let counter = 0;
+    //grabs ID from url query
+    const { id } = req.query;
+    const interval = setInterval(async () => {
+      // counter++;
+      // console.log(counter);
+      // if (counter >= 10) {
+      //   clearInterval(interval);
+      //   res.end(); // terminates SSE session
+      //   return;
+      // }
+      const { stdout } = await exec(`docker stats --no-stream --format "{{json .}}" ${id}`);
+      console.log('hi from request by ID', stdout);
+      let data = parseData(stdout);
+      data = JSON.stringify(data);
+      res.write('data: ' + data + '\n\n');
+    }, 3000);
+
+    res.on('close', () => {
+      console.log('client dropped me :((');
+      //Any other clean up
+      clearInterval(interval);
+      res.end();
+    });   
   },
   
   //function that grabs list of all docker containers, active or inactive

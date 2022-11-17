@@ -6,10 +6,10 @@ import LineChart from "./LineChart.jsx";
 //will need to render individual components for CPU, MEM & Network IO
 export default function Container(props) {
   const { ID, Names } = props.info;
-  const sse = new EventSource(`http://localhost:3000/cont/constream/?id=${ID}`);
   const [dataInfo, setData] = useState([]);
-
+  
   useEffect(() => {
+    const sse = new EventSource(`http://localhost:3000/cont/constream/?id=${ID}`);
     sse.onmessage = (event) => {
       const data = JSON.parse(event.data);
       setData(data);
