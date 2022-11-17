@@ -5,7 +5,7 @@ import { Pie } from 'react-chartjs-2';
 
 export default function PieChart(props) {
   let { data } = props;
-  data = parseFloat(data) * 10;
+  data = data.reduce((acc, curr) => acc + curr) / data.length;
   
   const [chartData, setChartData] = useState({
     labels: ['Average Usage', 'Free Space'],
@@ -31,6 +31,18 @@ export default function PieChart(props) {
       }],
     });
   }, [data]);
+
+  function getAverage(array, prop) {
+    let avg;
+    if (!array) {
+      return 0;
+    } else {
+      avg = (array
+        .map(container => container[prop])
+        .reduce((acc, curr) => acc + curr)) / array.length;
+      return avg;
+    }
+  }
   
   return (
     <div>

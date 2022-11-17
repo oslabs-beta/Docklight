@@ -9,12 +9,6 @@ export default function DataOverview() {
   const sse = new EventSource('http://localhost:3000/cont/fullstream');
 
   const [containersArray, setContainersArray] = useState([]);
-  const CPUaverage = (containersArray
-    .map(container => container.CPUPerc)
-    .reduce((acc, curr) => acc + curr)) / containersArray.length;
-  const MEMaverage = (containersArray
-    .map(container => container.MemPerc)
-    .reduce((acc, curr) => acc + curr)) / containersArray.length;
 
   useEffect(() => {
     sse.onmessage = (event) => {
@@ -26,8 +20,8 @@ export default function DataOverview() {
     return () => {
       sse.close();
     };
-  });
-  
+  }, [containersArray]);
+
 
   const notifs = [];
   const containers = [];
@@ -76,8 +70,8 @@ export default function DataOverview() {
         ? <h1 className="justify-center">No container to show</h1>
         : (<div>
           <div className="grid overflow-auto h-[70%]">
-            <PieChart data={CPUaverage}/>
-            <PieChart data={MEMaverage}/>
+            <PieChart data={containersArray.map(container => container.CPUPerc)}/>
+            <PieChart data={containersArray.map(container => container.MemPerc)}/>
           </div>
           <div className="border-t-4 h-[25%] border-x-blue-80000">
             <Notifications notifs={notifs} />
