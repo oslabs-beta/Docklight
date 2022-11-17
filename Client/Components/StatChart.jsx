@@ -46,7 +46,7 @@ export default function StatChart(props) {
           },
           maintainAspectRatio: false
         }}
-        width={'30%'}
+        //width={'50%'}
       />
     </div>
   );
