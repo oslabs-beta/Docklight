@@ -6,11 +6,11 @@ import PieChart from '../Components/PieChart.jsx';
 
 
 export default function DataOverview() {
-  const sse = new EventSource('http://localhost:3000/cont/fullstream');
 
   const [containersArray, setContainersArray] = useState([]);
 
   useEffect(() => {
+    const sse = new EventSource('http://localhost:3000/cont/fullstream');
     sse.onmessage = (event) => {
       const data = JSON.parse(event.data);
       setContainersArray(data);
@@ -20,11 +20,10 @@ export default function DataOverview() {
     return () => {
       sse.close();
     };
-  }, [containersArray]);
+  }, []);
 
 
   const notifs = [];
-  const containers = [];
   for (let i = 0; i < containersArray.length; i++) {
     // we would need to loop through the array of containers
     const element = containersArray[i];
@@ -70,8 +69,8 @@ export default function DataOverview() {
         ? <h1 className="justify-center">No container to show</h1>
         : (<div>
           <div className="flex flew-row justify-center overflow-auto h-[70%]">
-            <PieChart data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)}/>
-            <PieChart data={containersArray.map(container => parseFloat(container.MemPerc) * 10)}/>
+            <PieChart data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)} title={'CPU Usage'}/>
+            <PieChart data={containersArray.map(container => parseFloat(container.MemPerc) * 10)} title={'Memory Usage'}/>
           </div>
           <div className="border-t-4 h-[25%] border-x-blue-80000">
             <Notifications notifs={notifs} />
@@ -81,193 +80,3 @@ export default function DataOverview() {
     </>
   );
 }
-
-/*
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "0.00%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu125125",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "38%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu125",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu1347",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "0.00%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu1458",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu17345",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "0.00%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu1834513",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu181345",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu177777",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu7777777",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "0.00%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu125125",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "38%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu125",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu1347",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "0.00%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu1458",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu17345",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "0.00%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu1834513",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu181345",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-{
-  BlockIO: "0B / 0B",
-  CPUPerc: "90%",
-  Container: "3e2836e39536",
-  ID: "3e2836e39536",
-  MemPerc: "0.15%",
-  MemUsage: "11.57MiB / 7.475GiB",
-  Name: "crazy_tu177777",
-  NetIO: "1.08kB / 0B",
-  PIDs: "17",
-},
-*/

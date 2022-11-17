@@ -4,7 +4,7 @@ import Chart from 'chart.js/auto';
 import { Pie } from 'react-chartjs-2';
 
 export default function PieChart(props) {
-  let { data } = props;
+  const { data, title } = props;
   
   const [chartData, setChartData] = useState({
     labels: ['Average Usage', 'Free Space'],
@@ -19,12 +19,12 @@ export default function PieChart(props) {
     
   useEffect(() => {
     console.log('heres data', data);
-    data = data.reduce((acc, curr) => acc + curr) / data.length;
+    const newData = data.reduce((acc, curr) => acc + curr) / data.length;
     setChartData({
       labels: ['Usage', 'Free space'],
       datasets: [{
   
-        data: [data, (100 - data)],
+        data: [newData, (100 - newData)],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
@@ -50,7 +50,11 @@ export default function PieChart(props) {
       <Pie 
         data={chartData}
         options={{
-          plugins: {
+          plugins: {            
+            title: {
+              display: true,
+              text: title,
+            },
             legend: {
               display: true,
               position: 'bottom'

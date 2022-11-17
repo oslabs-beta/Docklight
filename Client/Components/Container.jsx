@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 const { useEffect, useState } = React;
-import StatChart from "./StatChart.jsx";
-import LineChart from "./LineChart.jsx";
+import StatChart from './StatChart.jsx';
+import LineChart from './LineChart.jsx';
 
 //will need to render individual components for CPU, MEM & Network IO
 export default function Container(props) {
@@ -15,14 +15,14 @@ export default function Container(props) {
       setData(data);
     };
     sse.onerror = () => sse.close();
-    console.log("data info", dataInfo);
+    console.log('data info', dataInfo);
     return () => {
       sse.close();
     };
   }, []);
 
   return (
-    <div className="justify-self-center mt-[40px] border-4 border-blue-400 rounded-lg h-[405px] min-w-[900px]">
+    <div className="justify-self-center mt-[40px] border-4 border-blue-400 rounded-lg h-[300px] min-w-[900px]">
       <div className="grid grid-cols-3 gap-5 mt-2 ml-2 mb-8 font-semibold">
         <h1>Container Name: {Names}</h1>
         <h1>Container ID: {ID} </h1>
