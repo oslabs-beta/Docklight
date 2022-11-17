@@ -4,7 +4,7 @@ import Chart from 'chart.js/auto';
 import 'chartjs-adapter-luxon';
 import { Line } from 'react-chartjs-2';
 import ChartStreaming from 'chartjs-plugin-streaming';
-
+Chart.overrides.line.spanGaps = true;
 Chart.register(ChartStreaming);
 
 export default function LineChart(props) {
@@ -20,11 +20,13 @@ export default function LineChart(props) {
         label: ['Network Input'],
         data: [dataArr[0]],
         backgroundColor: ['rgb(255, 99, 132)'],
+        spanGaps: true
       },
       {
         label: ['Network Output'],
         data: [dataArr[1]],
         backgroundColor: ['rgb(255, 99, 000)'],
+        spanGaps: true
       },
     ],
   });
@@ -49,7 +51,7 @@ export default function LineChart(props) {
         },
       ],
     }));
-  }, [chartData]);
+  }, [data]);
 
   function setData(event) {
     chart.current.data.datasets[0].data.push({
@@ -110,6 +112,11 @@ export default function LineChart(props) {
               },
             },
           },
+          elements: {
+            line: {
+              spanGaps: true
+            }
+          }
         }}
       />
     </div>

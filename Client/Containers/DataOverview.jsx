@@ -2,12 +2,19 @@ import * as React from 'react';
 const { useState, useEffect } = React;
 import OverviewContainer from '../Components/OverviewContainer';
 import Notifications from '../Components/Notifications';
+import PieChart from '../Components/PieChart.jsx';
 
 
 export default function DataOverview() {
   const sse = new EventSource('http://localhost:3000/cont/fullstream');
 
   const [containersArray, setContainersArray] = useState([]);
+  const CPUaverage = (containersArray
+    .map(container => container.CPUPerc)
+    .reduce((acc, curr) => acc + curr)) / containersArray.length;
+  const MEMaverage = (containersArray
+    .map(container => container.MemPerc)
+    .reduce((acc, curr) => acc + curr)) / containersArray.length;
 
   useEffect(() => {
     sse.onmessage = (event) => {
@@ -48,16 +55,16 @@ export default function DataOverview() {
         `Container ${containersArray[i].Name} has a very high MEM Usage!`,
       );
     }
-    containers.push(
-      <OverviewContainer
-        key={`c${containersArray[i].ID}`}
-        id={`containerNum${i}`}
-        name={containersArray[i].Name}
-        health={health}
-        notifs={notifs}
-        className={`justify-self-center border-4 ${danger} rounded-md max-h-[5%] min-h-[100%] min-w-[100%] `}
-      />,
-    );
+    // containers.push(
+    //   <OverviewContainer
+    //     key={`c${containersArray[i].ID}`}
+    //     id={`containerNum${i}`}
+    //     name={containersArray[i].Name}
+    //     health={health}
+    //     notifs={notifs}
+    //     className={`justify-self-center border-4 ${danger} rounded-md max-h-[5%] min-h-[100%] min-w-[100%] `}
+    //   />,
+    // );
   }
 
   return (
@@ -69,7 +76,8 @@ export default function DataOverview() {
         ? <h1 className="justify-center">No container to show</h1>
         : (<div>
           <div className="grid overflow-auto h-[70%]">
-            {containers}
+            <PieChart data={CPUaverage}/>
+            <PieChart data={MEMaverage}/>
           </div>
           <div className="border-t-4 h-[25%] border-x-blue-80000">
             <Notifications notifs={notifs} />
