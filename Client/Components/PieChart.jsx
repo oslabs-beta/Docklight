@@ -5,7 +5,6 @@ import { Pie } from 'react-chartjs-2';
 
 export default function PieChart(props) {
   let { data } = props;
-  data = data.reduce((acc, curr) => acc + curr) / data.length;
   
   const [chartData, setChartData] = useState({
     labels: ['Average Usage', 'Free Space'],
@@ -19,6 +18,8 @@ export default function PieChart(props) {
   });
     
   useEffect(() => {
+    console.log('heres data', data);
+    data = data.reduce((acc, curr) => acc + curr) / data.length;
     setChartData({
       labels: ['Usage', 'Free space'],
       datasets: [{

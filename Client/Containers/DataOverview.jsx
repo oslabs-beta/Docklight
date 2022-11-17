@@ -70,8 +70,8 @@ export default function DataOverview() {
         ? <h1 className="justify-center">No container to show</h1>
         : (<div>
           <div className="grid overflow-auto h-[70%]">
-            <PieChart data={containersArray.map(container => container.CPUPerc)}/>
-            <PieChart data={containersArray.map(container => container.MemPerc)}/>
+            <PieChart data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)}/>
+            <PieChart data={containersArray.map(container => parseFloat(container.MemPerc) * 10)}/>
           </div>
           <div className="border-t-4 h-[25%] border-x-blue-80000">
             <Notifications notifs={notifs} />
