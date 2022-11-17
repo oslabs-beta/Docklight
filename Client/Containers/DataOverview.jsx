@@ -69,7 +69,7 @@ export default function DataOverview() {
       {containersArray.length === 0
         ? <h1 className="justify-center">No container to show</h1>
         : (<div>
-          <div className="grid overflow-auto h-[70%]">
+          <div className="flex flew-row justify-center overflow-auto h-[70%]">
             <PieChart data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)}/>
             <PieChart data={containersArray.map(container => parseFloat(container.MemPerc) * 10)}/>
           </div>

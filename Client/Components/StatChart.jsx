@@ -5,7 +5,7 @@ import { Doughnut } from 'react-chartjs-2';
 
 export default function StatChart(props) {
   let { data } = props;
-  data = parseFloat(data) * 10;
+
 
   const [chartData, setChartData] = useState({
     labels: ['Usage', 'Free Space'],
@@ -19,6 +19,7 @@ export default function StatChart(props) {
   });
   
   useEffect(() => {
+    data = parseFloat(data) * 10;
     setChartData({
       labels: ['Usage', 'Free space'],
       datasets: [{
@@ -35,20 +36,17 @@ export default function StatChart(props) {
   return (
     <div>
       <Doughnut 
-        
         data={chartData}
         options={{
           plugins: {
-            title: {
-              display: true,
-              text: 'hi'
-            },
             legend: {
               display: true,
               position: 'bottom'
             }
-          }}
-        }
+          },
+          maintainAspectRatio: false
+        }}
+        width={'30%'}
       />
     </div>
   );

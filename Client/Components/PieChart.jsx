@@ -48,20 +48,15 @@ export default function PieChart(props) {
   return (
     <div>
       <Pie 
-          
         data={chartData}
         options={{
           plugins: {
-            title: {
-              display: true,
-              text: 'hi'
-            },
             legend: {
               display: true,
               position: 'bottom'
             }
-          }}
-        }
+          },
+        }}
       />
     </div>
   );
