@@ -46,9 +46,9 @@ export default function StatChart(props) {
             legend: {
               display: true,
               position: 'bottom'
-          }
-        }}
-      }
+            }
+          }}
+        }
       />
     </div>
   );

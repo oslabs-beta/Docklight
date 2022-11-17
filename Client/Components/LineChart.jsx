@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 const { useEffect, useState, useRef, useMemo, useCallback } = React;
-import Chart from "chart.js/auto";
-import "chartjs-adapter-luxon";
-import { Line } from "react-chartjs-2";
-import ChartStreaming from "chartjs-plugin-streaming";
+import Chart from 'chart.js/auto';
+import 'chartjs-adapter-luxon';
+import { Line } from 'react-chartjs-2';
+import ChartStreaming from 'chartjs-plugin-streaming';
 
 Chart.register(ChartStreaming);
 
@@ -11,20 +11,20 @@ export default function LineChart(props) {
   const { data } = props;
   const chart = useRef();
   const dataArr = dataSplit(data);
-  console.log("line chart data", dataArr);
+  console.log('line chart data', dataArr);
 
   const [chartData, setChartData] = useState({
     datasets: [
       {
         id: 1,
-        label: ["Network Input"],
+        label: ['Network Input'],
         data: [dataArr[0]],
-        backgroundColor: ["rgb(255, 99, 132)"],
+        backgroundColor: ['rgb(255, 99, 132)'],
       },
       {
-        label: ["Network Output"],
+        label: ['Network Output'],
         data: [dataArr[1]],
-        backgroundColor: ["rgb(255, 99, 000)"],
+        backgroundColor: ['rgb(255, 99, 000)'],
       },
     ],
   });
@@ -41,15 +41,15 @@ export default function LineChart(props) {
       datasets: [
         {
           ...prevState.datasets[0],
-          backgroundColor: ["rgb(255, 99, 132)"],
+          backgroundColor: ['rgb(255, 99, 132)'],
         },
         {
           ...prevState.datasets[1],
-          backgroundColor: ["rgb(255, 99, 000)"],
+          backgroundColor: ['rgb(255, 99, 000)'],
         },
       ],
     }));
-  }, [dataArr]);
+  }, [chartData]);
 
   function setData(event) {
     chart.current.data.datasets[0].data.push({
@@ -60,7 +60,7 @@ export default function LineChart(props) {
       x: event.timestamp,
       y: event.value2,
     });
-    chart.current.update("quiet");
+    chart.current.update('quiet');
   }
 
   function dataSplit(string) {
@@ -68,9 +68,9 @@ export default function LineChart(props) {
       return [];
     }
     const result = [];
-    const stringArr = string.split(" / ");
+    const stringArr = string.split(' / ');
     stringArr.forEach((el) => {
-      if (el.includes("kB")) {
+      if (el.includes('kB')) {
         el = parseFloat(el);
       } else {
         el = parseFloat(el) / 1000;
@@ -90,11 +90,11 @@ export default function LineChart(props) {
           plugins: {
             title: {
               display: true,
-              text: "hello",
+              text: 'hello',
             },
             legend: {
               display: true,
-              position: "bottom",
+              position: 'bottom',
             },
             streaming: {
               duration: 20000,
@@ -102,7 +102,7 @@ export default function LineChart(props) {
           },
           scales: {
             x: {
-              type: "realtime",
+              type: 'realtime',
               realtime: {
                 duration: 20000,
                 frameRate: 5,
