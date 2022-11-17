@@ -51,18 +51,12 @@ export default function PieChart(props) {
         data={chartData}
         options={{
           plugins: {
-            title: {
-              display: true,
-              text: 'hi'
-            },
             legend: {
               display: true,
               position: 'bottom'
             }
           },
-          maintainAspectRatio: false
         }}
-        width={'50%'}
       />
     </div>
   );
