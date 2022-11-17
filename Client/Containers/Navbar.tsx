@@ -14,15 +14,16 @@ export default function Navbar() {
     // sse.onerror = () => sse.close;
 
   return (
-    <div className="flex flex-col items-center text-3xl font-bold underlined bg-blue-800 w-1/5 max-w-xs">
-      <header className="mt-5">
+    <div className="flex flex-col items-center text-3xl font-bold underlined bg-blue-400 w-[375px] max-w-[425px] border-r-4">
+      <p>this is a logo</p>
+      <header className="mt-5 text-5xl">
        Docklight 
       </header>
-      <div className='flex h-screen flex-col place-content-center space-y-8 text-center'>
-        <Link to="/"className='bg-slate-200 rounded-md border-black border-2'> <button className=''>Home Page</button></Link>
-        <Link to="/DataOverview"className='bg-slate-200 rounded-md border-black border-2'> <button className=''>Data Overview</button></Link>
-        <Link to="/YourContainers"className='bg-slate-200 rounded-md border-black border-2' ><button className=''>Your Containers</button></Link>
-        <Link to="/Team" className='bg-slate-200 rounded-md border-black border-2'> <button className=''> Team</button></Link>
+      <div className='flex h-screen flex-col space-y-8 text-center mt-[150px]'>
+        <Link to="/"className='bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'> <button className=''>Home Page</button></Link>
+        <Link to="/DataOverview"className='bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'> <button className=''>Data Overview</button></Link>
+        <Link to="/YourContainers"className='bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded' ><button className=''>Your Containers</button></Link>
+        <Link to="/Team" className='bg-blue-800 hover:bg-blue-600 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'> <button className=''> Team</button></Link>
       </div>
     </div>
   );
