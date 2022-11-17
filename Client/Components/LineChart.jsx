@@ -78,33 +78,31 @@ export default function LineChart(props) {
         },
       ],
     }));
-    setInterval(() => {
-      console.log('this is data', dataArr);
-      console.log('hi');
-      // const newData = {
-      //   value1: dataArr[0],
-      //   value2: dataArr[1],
-      //   timestamp: new Date(),
-      // };
-      //setData(newData);
-      setData(newData);
-      setChartData((prevState) => ({
-        ...prevState,
-        datasets: [
-          {
-            ...prevState.datasets[0],
-            backgroundColor: ['rgb(255, 99, 132)'],
-          },
-          {
-            ...prevState.datasets[1],
-            backgroundColor: ['rgb(255, 99, 000)'],
-          },
-        ],
-      }));
-    }, 1000);
-  }, [data]);
-
-
+    // setInterval(() => {
+    //   console.log('this is data', dataArr);
+    //   console.log('hi');
+    //   // const newData = {
+    //   //   value1: dataArr[0],
+    //   //   value2: dataArr[1],
+    //   //   timestamp: new Date(),
+    //   // };
+    //   //setData(newData);
+    //   setData(newData);
+    //   setChartData((prevState) => ({
+    //     ...prevState,
+    //     datasets: [
+    //       {
+    //         ...prevState.datasets[0],
+    //         backgroundColor: ['rgb(255, 99, 132)'],
+    //       },
+    //       {
+    //         ...prevState.datasets[1],
+    //         backgroundColor: ['rgb(255, 99, 000)'],
+    //       },
+    //     ],
+    //   }));
+    // }, 1000);
+  }, [chartData]);
 
   function setData(event) {
     chart.current.data.datasets[0].data.push({
