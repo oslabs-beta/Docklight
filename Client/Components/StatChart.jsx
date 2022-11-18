@@ -19,7 +19,7 @@ export default function StatChart(props) {
   });
   
   useEffect(() => {
-    data = parseFloat(data) * 10;
+    data = parseFloat(data);
     setChartData({
       labels: ['Usage', 'Free space'],
       datasets: [{
