@@ -66,7 +66,7 @@ export default function DataOverview() {
         <header className="content-center">Data Overview</header>
       </div>
       {containersArray.length === 0
-        ? <h1 className="justify-center">No container to show</h1>
+        ? <h1 className="justify-center">Containers loading...</h1>
         : (<div>
           <div className="flex flew-row justify-center overflow-auto h-[70%]">
             <PieChart data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)} title={'CPU Usage'}/>
