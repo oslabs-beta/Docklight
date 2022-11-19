@@ -54,19 +54,27 @@ export default function YourContainers(props) {
 
   return (
     <>
-      <header className="flex h-[61px] border-b-2 border-black">
-        <Active inactive={inactiveButton} active={activeButton} />
+      <header className="flex h-[61px] border-b-2 border-black shadow-md">
+        <Active inactive={inactiveButton} active={activeButton} isInactive={inactiveDisplay} />
         <SearchContainers />
       </header>
-      <div className="grid overflow-auto h-[95%]">
-        {inactiveDisplay
-          ? inactiveList.map((container) => (
+      {inactiveDisplay
+        ? 
+        <div className='flex flex-wrap'>
+          {inactiveList.map((container) => (
+            <>
               <InactiveContainers key={`c${container.ID}`} info={container} />
-            ))
-          : contArray.map((container) => (
-              <Container key={`c${container.ID}`} info={container} />
-            ))}
-      </div>
+              <InactiveContainers key={`c${container.ID}`} info={container} />
+            </>
+          ))}
+        </div>
+        : 
+        <div className="flex flex-col overflow-auto h-[95%] items-center">
+          {contArray.map((container) => (
+            <Container key={`c${container.ID}`} info={container} />
+          ))}
+        </div>
+      }
     </>
   );
 }

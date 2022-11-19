@@ -46,7 +46,7 @@ export default function PieChart(props) {
   }
   
   return (
-    <div>
+    <div className='sm:w-[300px] lg:w-[375px] xl:w-[425px] 2xl-w-[500px]'>
       <Pie 
         data={chartData}
         options={{
