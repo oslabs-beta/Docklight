@@ -14,7 +14,7 @@ export default function Navbar() {
     // sse.onerror = () => sse.close;
 
   return (
-    <div className="flex flex-col items-center text-3xl font-bold underlined bg-blue-400 w-[375px] max-w-[425px] border-r-4">
+    <div className="flex flex-col items-center text-3xl font-bold underlined bg-blue-400 w-[375px] max-w-[425px] border-r-4 shadow-lg">
       <p>this is a logo</p>
       <header className="mt-5 text-5xl">
        Docklight 

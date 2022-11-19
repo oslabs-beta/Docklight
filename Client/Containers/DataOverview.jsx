@@ -3,7 +3,7 @@ const { useState, useEffect } = React;
 import OverviewContainer from '../Components/OverviewContainer';
 import Notifications from '../Components/Notifications';
 import PieChart from '../Components/PieChart.jsx';
-
+import Loader from '../Utility/Loader';
 
 export default function DataOverview() {
 
@@ -62,20 +62,25 @@ export default function DataOverview() {
 
   return (
     <>
-      <div className="text-center p-5 max-h-[10%] items-center text-3xl font-bold underlined">
+      <div className="text-center p-5 h-[7%] items-center text-3xl font-bold underlined">
         <header className="content-center">Data Overview</header>
       </div>
       {containersArray.length === 0
-        ? <h1 className="justify-center">Containers loading...</h1>
-        : (<div>
-          <div className="flex flew-row justify-center overflow-auto h-[70%]">
-            <PieChart data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)} title={'CPU Usage'}/>
-            <PieChart data={containersArray.map(container => parseFloat(container.MemPerc) * 10)} title={'Memory Usage'}/>
+        ? 
+        <Loader />
+        : (
+          <div className='overflow-auto'>
+            <div 
+              className="grid overflow-auto grid-cols-2 grid-rows-2 gap-4 sm:h-[700px] lg:h-[790px] xl:h-[900px] 2xl:h-[950px] justify-items-center mt-[10px]">
+              <PieChart colstart='col-start-2' data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)} title={'Average CPU Usage'}/>
+              <PieChart colstart='col-start-3' data={containersArray.map(container => parseFloat(container.MemPerc) * 10)} title={'Average Memory Usage'}/>
+              <PieChart colstart='col-start-2' data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)} title={'Average CPU Usage'}/>
+              <PieChart colstart='col-start-3' data={containersArray.map(container => parseFloat(container.MemPerc) * 10)} title={'Average Memory Usage'}/>
+            </div>
+            {/* <div className="border-t-4 h-[25%]">
+              <Notifications notifs={notifs} />
+            </div> */}
           </div>
-          <div className="border-t-4 h-[25%] border-x-blue-80000">
-            <Notifications notifs={notifs} />
-          </div>
-        </div>
         )}
     </>
   );

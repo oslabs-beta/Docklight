@@ -2,6 +2,7 @@ import * as React from 'react';
 const { useEffect, useState } = React;
 import StatChart from './StatChart.jsx';
 import LineChart from './LineChart.jsx';
+import Loader from '../Utility/Loader';
 
 //will need to render individual components for CPU, MEM & Network IO
 export default function Container(props) {
@@ -22,7 +23,7 @@ export default function Container(props) {
   }, []);
 
   return (
-    <div className="justify-self-center mt-[40px] border-4 border-blue-400 rounded-lg h-[300px] min-w-[900px]">
+    <div className="mt-[40px] mb-[10px] border-4 border-blue-400 rounded-lg h-[300px] w-[900px] shadow-lg">
       <div className="grid grid-cols-3 gap-5 mt-2 ml-2 mb-8 font-semibold">
         <h1>Container Name: {Names}</h1>
         <h1>Container ID: {ID} </h1>
@@ -30,26 +31,50 @@ export default function Container(props) {
           Turn Off
         </button>
       </div>
-      <div className="grid grid-cols-3 justify-items-center font-semibold mt-2">
-        <div>
-          <h1 className="flex justify-center">
+      {dataInfo.length === 0 ? 
+        <Loader />
+        : 
+        <div className="grid grid-cols-3 justify-items-center font-semibold mt-2">
+          <div className='mb-4'>
+            <h1 className="flex justify-center mb-2">
+            CPU Usage: {dataInfo[0] ? dataInfo[0].CPUPerc : 0}
+            </h1>
+            <StatChart data={dataInfo[0] ? dataInfo[0].CPUPerc : 0} />
+          </div>
+          <div className='mb-4'>
+            <h1 className="flex justify-center mb-2">
+            MEM Usage: {dataInfo[0] ? dataInfo[0].MemPerc : 0}
+            </h1>
+            <StatChart data={dataInfo[0] ? dataInfo[0].MemPerc : 0} />
+          </div>
+          <div className='mb-4 mr-2'>
+            <h1 className="flex justify-center mb-2">
+            Network I/O: {dataInfo[0] ? dataInfo[0].NetIO : 0}
+            </h1>
+            <LineChart data={dataInfo[0] ? dataInfo[0].NetIO : 0} />
+          </div>
+        </div>
+      }
+      {/* <div className="grid grid-cols-3 justify-items-center font-semibold mt-2">
+        <div className='mb-4'>
+          <h1 className="flex justify-center mb-2">
             CPU Usage: {dataInfo[0] ? dataInfo[0].CPUPerc : 0}
           </h1>
           <StatChart data={dataInfo[0] ? dataInfo[0].CPUPerc : 0} />
         </div>
-        <div>
-          <h1 className="flex justify-center">
+        <div className='mb-4'>
+          <h1 className="flex justify-center mb-2">
             MEM Usage: {dataInfo[0] ? dataInfo[0].MemPerc : 0}
           </h1>
           <StatChart data={dataInfo[0] ? dataInfo[0].MemPerc : 0} />
         </div>
-        <div>
-          <h1 className="flex justify-center">
+        <div className='mb-4 mr-2'>
+          <h1 className="flex justify-center mb-2">
             Network I/O: {dataInfo[0] ? dataInfo[0].NetIO : 0}
           </h1>
           <LineChart data={dataInfo[0] ? dataInfo[0].NetIO : 0} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
