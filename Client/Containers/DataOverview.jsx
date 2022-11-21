@@ -2,7 +2,7 @@ import * as React from 'react';
 const { useState, useEffect } = React;
 import OverviewContainer from '../Components/OverviewContainer';
 import Notifications from '../Components/Notifications';
-import PieChart from '../Components/PieChart.jsx';
+import BarChart from '../Components/BarChart.jsx';
 import Loader from '../Utility/Loader';
 
 export default function DataOverview() {
@@ -70,15 +70,23 @@ export default function DataOverview() {
         <Loader />
         : (
           <div className='overflow-auto'>
-            <div 
-              className="grid overflow-auto grid-cols-2 grid-rows-2 gap-4 sm:h-[700px] lg:h-[790px] xl:h-[900px] 2xl:h-[950px] justify-items-center mt-[10px]">
-              <PieChart colstart='col-start-2' data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)} title={'Average CPU Usage'}/>
-              <PieChart colstart='col-start-3' data={containersArray.map(container => parseFloat(container.MemPerc) * 10)} title={'Average Memory Usage'}/>
-              <PieChart colstart='col-start-2' data={containersArray.map(container => parseFloat(container.CPUPerc) * 10)} title={'Average CPU Usage'}/>
-              <PieChart colstart='col-start-3' data={containersArray.map(container => parseFloat(container.MemPerc) * 10)} title={'Average Memory Usage'}/>
+            <div>
+              <BarChart data={containersArray.map(container => {
+                //const MemTotal = container.MemUsage.split(' / ')[1];
+                const BlockIn = container.BlockIO.split(' / ')[0];
+                const BlockOut = container.BlockIO.split(' / ')[1];
+                return ({
+                  CPUPerc: parseFloat(container.CPUPerc) * 10,
+                  MemPerc: parseFloat(container.MemPerc) * 10,
+                  BlockIn: parseFloat(BlockIn),
+                  BlockOut: parseFloat(BlockOut),
+                  // MemUsage: parseFloat(container.MemUsage),
+                  // MemTotal: parseFloat(MemTotal) * 1000 
+                });
+              })} />
             </div>
             {/* <div className="border-t-4 h-[25%]">
-              <Notifications notifs={notifs} />
+              <Notifications notifs={notifs} />git
             </div> */}
           </div>
         )}
