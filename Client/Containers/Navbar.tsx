@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 //import axios from 'axios';
-import Homepage from '../Components/Homepage';
+import Homepage from './Homepage';
 import DataOverview from './DataOverview';
 import YourContainers from './YourContainers';
-import Team from '../Components/Team';
+import Team from './Team';
 
 export default function Navbar() {
     // const sse = new EventSource('http://localhost:3000/cont/constream');

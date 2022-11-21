@@ -1,7 +1,7 @@
 import * as React from 'react';
 const { useEffect, useState } = React;
-import StatChart from './StatChart.jsx';
-import LineChart from './LineChart.jsx';
+import StatChart from '../Charts/StatChart.jsx';
+import LineChart from '../Charts/LineChart.jsx';
 import Loader from '../Utility/Loader';
 
 //will need to render individual components for CPU, MEM & Network IO
