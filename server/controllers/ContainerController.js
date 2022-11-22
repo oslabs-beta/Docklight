@@ -70,7 +70,14 @@ module.exports = {
   dockerContainers: async (req, res, next) => {
     try {
       const { stdout } = await exec('docker ps --all --format "{{json .}}"');
-      const newData = parseData(stdout);
+      const newData = parseData(stdout).map(container => {
+        return ({
+          ID: container.ID,
+          Names: container.Names,
+          State: container.State
+        });
+      });
+      console.log(newData);
       res.locals.containers = newData;
       return next();
     }

@@ -2,7 +2,7 @@ import * as React from 'react';
 const { useState, useEffect } = React;
 import OverviewContainer from '../Components/OverviewContainer';
 import Notifications from '../Components/Notifications';
-import BarChart from '../Charts/BarChart.jsx';
+import BarChart from '../Charts/BarChart';
 import Loader from '../Utility/Loader';
 
 export default function DataOverview() {
