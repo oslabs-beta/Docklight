@@ -5,13 +5,25 @@ import Notifications from '../Components/Notifications';
 import BarChart from '../Charts/BarChart';
 import Loader from '../Utility/Loader';
 
+type Container = {
+  BlockIO: string
+  CPUPerc: string
+  Container: string
+  ID: string
+  MemPerc: string
+  MemUsage: string
+  Name: string
+  NetIO: string
+  PIDS: string
+}
+
 export default function DataOverview() {
 
-  const [containersArray, setContainersArray] = useState([]);
+  const [containersArray, setContainersArray] = useState<Container[]>([]);
 
   useEffect(() => {
     const sse = new EventSource('http://localhost:3000/cont/fullstream');
-    sse.onmessage = (event) => {
+    sse.onmessage = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       setContainersArray(data);
     };
@@ -28,11 +40,11 @@ export default function DataOverview() {
     // we would need to loop through the array of containers
     const element = containersArray[i];
     //string to be reasigned after we check the health of the container
-    let health = 'Good Shape';
-    let danger = 'border-blue-400';
+    let health: string = 'Good Shape';
+    let danger: string = 'border-blue-400';
     //removing everything and leaving only numbers
-    const cpu = Number(element.CPUPerc.replace(/\D+/g, '').slice(0, 2));
-    const memory = Number(element.MemPerc.replace(/\D+/g, '').slice(0, 2));
+    const cpu: number = Number(element.CPUPerc.replace(/\D+/g, '').slice(0, 2));
+    const memory: number = Number(element.MemPerc.replace(/\D+/g, '').slice(0, 2));
 
     if (cpu > 75 || memory > 75) {
       health = 'Bad Shape';
