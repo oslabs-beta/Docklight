@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  target: 'node',
   mode: process.env.NODE_ENV,
   plugins: [
     new HtmlWebpackPlugin({

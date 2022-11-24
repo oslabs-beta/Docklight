@@ -1,8 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-
-const { promisify } = require('util');
-//const { spawn }  = require('child_process');
-const exec = promisify(require('child_process').exec);
+import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import { promisify } from 'util';
+import { exec } from "child_process";
+const execProm = promisify(exec);
 
 //parsing data given to us by the docker CLI 
 const parseData = (stdout: string) => {
@@ -16,8 +15,7 @@ const parseData = (stdout: string) => {
   }
   return containers;
 };
-
-module.exports = {
+export const containerController = {
 
   //middleware function that returns an actively updating array of all currently running containers through an event source interval
   dockerStatRequest: (req: Request, res: Response, next: NextFunction) => {
@@ -28,7 +26,7 @@ module.exports = {
       'Connection': 'keep-alive',
     });
     const interval = setInterval(async () => {
-      const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
+      const { stdout } = await execProm('docker stats --no-stream --format "{{json .}}"');
       console.log('hi from request', stdout);
       const data: string[] = parseData(stdout);
       const newData: string = JSON.stringify(data);
@@ -53,7 +51,7 @@ module.exports = {
     //grabs ID from url query
     const { id } = req.query;
     const interval = setInterval(async () => {
-      const { stdout } = await exec(`docker stats --no-stream --format "{{json .}}" ${id}`);
+      const { stdout } = await execProm(`docker stats --no-stream --format "{{json .}}" ${id}`);
       console.log('hi from request by ID', stdout);
       const data: string[] = parseData(stdout);
       const newData: string = JSON.stringify(data);
@@ -71,7 +69,7 @@ module.exports = {
   //function that grabs list of all docker containers, active or inactive
   dockerContainers: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { stdout } = await exec('docker ps --all --format "{{json .}}"');
+      const { stdout } = await execProm('docker ps --all --format "{{json .}}"');
       const newData = parseData(stdout).map(container => {
         return ({
           ID: container.ID,
@@ -95,7 +93,7 @@ module.exports = {
 
 
 
-
+//const { spawn }  = require('child_process');
 // Code for streaming w/ spawn vs an interval call
 //const dockerStat = spawn('docker', ['stats', '--format="{{json .}}"']);
 

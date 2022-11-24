@@ -1,8 +1,6 @@
-import { RequestHandler, Response } from "express";
-const express = require('express');
-const { RouterProvider } = require('react-router-dom');
-const router = express.Router();
-const containerController = require('../controllers/ContainerController');
+import Router, { Request, Response} from 'express';
+import { containerController } from '../controllers/ContainerController';
+const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
   res.send('hello from container route');
@@ -16,4 +14,4 @@ router.get('/list', containerController.dockerContainers, (req: Request, res: Re
   res.status(200).json(res.locals.containers);
 });
 
-module.exports = router;
+export default router;

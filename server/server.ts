@@ -1,14 +1,11 @@
-import { ErrorRequestHandler, NextFunction, Request, RequestHandler, Response } from 'express'
-const express = require('express');
-const { ErrorRequestHandler, NextFunction, RequestHandler } = express;
+import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import path from 'path';
+import containerRoute from './routes/ContainerRoute';
 const app = express();
-const path = require('path');
-const cors = require('cors');
-const containerRoute = require('./routes/ContainerRoute');
 
 const PORT: number = 3000;
 
-app.use((req: Request, res: Response, next: typeof NextFunction) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
@@ -18,7 +15,7 @@ app.use((req: Request, res: Response, next: typeof NextFunction) => {
 });
 
 //middleware to parse incoming requests
-app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

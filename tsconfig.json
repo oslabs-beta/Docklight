@@ -3,11 +3,13 @@
       "outDir": "./build/",
       "sourceMap": true,
       "noImplicitAny": true,
-      "module": "es6",
-      "target": "es5",
+      "module": "CommonJS",
+      "target": "es6",
       "jsx": "react",
       "allowJs": true,
       "strict": true,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true
     }
   }
