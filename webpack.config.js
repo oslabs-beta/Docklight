@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  target: 'node',
   mode: process.env.NODE_ENV,
   plugins: [
     new HtmlWebpackPlugin({
@@ -43,15 +42,18 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        use: ['ts-loader'],
-        exclude: /node_modules/,
-      }]
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-typescript'],
+          }
+        },
+        exclude: /node_modules/
+      }
+    ]
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    fallback: { 'http': false, 'browser': false, 'https': false, 
-      'stream': false, 'url': false, 'buffer': false, 'timers': false, 'zlib': false, assert: false
-    }
   },
   devServer: {
     proxy: {
