@@ -3,14 +3,26 @@ const { useEffect, useState } = React;
 import Chart from 'chart.js/auto';
 import { Doughnut } from 'react-chartjs-2';
 
-export default function StatChart(props) {
-  let { data } = props;
+type Props = {
+  propData: string
+}
+
+type ChartData = {
+    labels: string[],
+    datasets: {
+      data: number[]
+      backgroundColor: string[]
+    }[],
+}
+
+export default function StatChart(props: Props) {
+  let { propData } = props;
 
 
-  const [chartData, setChartData] = useState({
+  const [chartData, setChartData] = useState<ChartData>({
     labels: ['Usage', 'Free Space'],
     datasets: [{
-      data: [data, (100 - data)],
+      data: [0, 0],
       backgroundColor: [
         'rgb(255, 99, 500)',
         'rgb(54, 162, 235)',
@@ -19,19 +31,19 @@ export default function StatChart(props) {
   });
   
   useEffect(() => {
-    data = parseFloat(data);
+    const newData: number = parseFloat(propData);
     setChartData({
       labels: ['Usage', 'Free space'],
       datasets: [{
 
-        data: [data, (100 - data)],
+        data: [newData, (100 - newData)],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
         ]
       }],
     });
-  }, [data]);
+  }, [propData]);
 
   return (
     <div>
@@ -46,7 +58,6 @@ export default function StatChart(props) {
           },
           maintainAspectRatio: false
         }}
-        //width={'50%'}
       />
     </div>
   );

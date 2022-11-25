@@ -1,9 +1,10 @@
-const { promisify } = require('util');
-//const { spawn }  = require('child_process');
-const exec = promisify(require('child_process').exec);
+import { Request, Response, NextFunction } from 'express';
+import { promisify } from 'util';
+import { exec } from "child_process";
+const execProm = promisify(exec);
 
 //parsing data given to us by the docker CLI 
-const parseData = (stdout) => {
+const parseData = (stdout: string) => {
   const containers = [];
   const dockerStats = stdout.trim();
       
@@ -14,11 +15,10 @@ const parseData = (stdout) => {
   }
   return containers;
 };
-
-module.exports = {
+export const containerController = {
 
   //middleware function that returns an actively updating array of all currently running containers through an event source interval
-  dockerStatRequest: (req, res, next) => {
+  dockerStatRequest: (req: Request, res: Response, next: NextFunction) => {
     //opens CLI command, grabs the return value, parses it and sends it back through the stream
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
@@ -26,11 +26,11 @@ module.exports = {
       'Connection': 'keep-alive',
     });
     const interval = setInterval(async () => {
-      const { stdout } = await exec('docker stats --no-stream --format "{{json .}}"');
+      const { stdout } = await execProm('docker stats --no-stream --format "{{json .}}"');
       console.log('hi from request', stdout);
-      let data = parseData(stdout);
-      data = JSON.stringify(data);
-      res.write('data: ' + data + '\n\n');
+      const data: string[] = parseData(stdout);
+      const newData: string = JSON.stringify(data);
+      res.write('data: ' + newData + '\n\n');
     }, 1500);
 
     res.on('close', () => {
@@ -42,7 +42,7 @@ module.exports = {
   },
 
   //function that returns a single container by ID as an object in an actively updating array through an event source interval
-  dockerStatRequestById: (req, res, next) => {
+  dockerStatRequestById: (req: Request, res: Response, next: NextFunction) => {
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
@@ -51,11 +51,11 @@ module.exports = {
     //grabs ID from url query
     const { id } = req.query;
     const interval = setInterval(async () => {
-      const { stdout } = await exec(`docker stats --no-stream --format "{{json .}}" ${id}`);
+      const { stdout } = await execProm(`docker stats --no-stream --format "{{json .}}" ${id}`);
       console.log('hi from request by ID', stdout);
-      let data = parseData(stdout);
-      data = JSON.stringify(data);
-      res.write('data: ' + data + '\n\n');
+      const data: string[] = parseData(stdout);
+      const newData: string = JSON.stringify(data);
+      res.write('data: ' + newData + '\n\n');
     }, 1500);
 
     res.on('close', () => {
@@ -67,10 +67,17 @@ module.exports = {
   },
   
   //function that grabs list of all docker containers, active or inactive
-  dockerContainers: async (req, res, next) => {
+  dockerContainers: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { stdout } = await exec('docker ps --all --format "{{json .}}"');
-      const newData = parseData(stdout);
+      const { stdout } = await execProm('docker ps --all --format "{{json .}}"');
+      const newData = parseData(stdout).map(container => {
+        return ({
+          ID: container.ID,
+          Names: container.Names,
+          State: container.State
+        });
+      });
+      console.log(newData);
       res.locals.containers = newData;
       return next();
     }
@@ -83,6 +90,10 @@ module.exports = {
   }
 };
 
+
+
+
+//const { spawn }  = require('child_process');
 // Code for streaming w/ spawn vs an interval call
 //const dockerStat = spawn('docker', ['stats', '--format="{{json .}}"']);
 

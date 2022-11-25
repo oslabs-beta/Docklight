@@ -1,17 +1,11 @@
 import * as React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-//import axios from 'axios';
 import Homepage from './Homepage';
 import DataOverview from './DataOverview';
 import YourContainers from './YourContainers';
 import Team from './Team';
 
 export default function Navbar() {
-    // const sse = new EventSource('http://localhost:3000/cont/constream');
-    // sse.onmessage = (event) => {
-    //   console.log(JSON.parse(event.data))
-    // }
-    // sse.onerror = () => sse.close;
 
   return (
     <div className="flex flex-col items-center text-3xl font-bold underlined bg-blue-400 w-[375px] max-w-[425px] border-r-4 shadow-lg">

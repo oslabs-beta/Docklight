@@ -3,25 +3,51 @@ const { useEffect, useState } = React;
 import Chart from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 
+type DataObject = {
+  [key:string]: number,
+  CPUPerc: number,
+  MemPerc: number,
+  BlockIn: number,
+  BlockOut: number
+}
 
-export default function BarChart(props) {
+
+type Props = {
+  data: DataObject[]
+}
+
+type Dataset = {
+  label: string,
+  data: number[],
+  backgroundColor: string,
+  borderColor: string,
+  borderWidth: number
+}
+
+type BarData = {
+  labels: string[],
+  datasets: Dataset[]
+}
+
+export default function BarChart(props: Props) {
   console.log('initial data', props.data);
-  const newData = props.data.reduce((acc, curr) => {
+  const newData:DataObject = props.data.reduce((acc: DataObject, curr: DataObject) => {
     acc.BlockIn += curr.BlockIn;
     acc.BlockOut += curr.BlockOut; 
     acc.CPUPerc += curr.CPUPerc;
     acc.MemPerc += curr.MemPerc;
     return acc;
   });
+
   for (const prop in newData) {
     newData[prop] = newData[prop] / props.data.length;
   }
   const { BlockIn, 
     BlockOut, 
     CPUPerc, 
-    MemPerc} = newData;
+    MemPerc } = newData;
 
-  const [chartData, setChartData] = useState({
+  const [chartData, setChartData] = useState<BarData>({
     labels: ['Block In / BlockOut', 'CPU Usage', 'Memory Usage'],
     datasets: [ {
       label: 'Data 1',
@@ -39,7 +65,6 @@ export default function BarChart(props) {
     }
     ]
   });
-
 
   useEffect(() => {
     console.log('heres data', props.data);
@@ -82,8 +107,9 @@ export default function BarChart(props) {
             x: {
               stacked: true,
             },
-          }}
-        }      
+          },
+          indexAxis: 'y'
+        }}      
       />
     </div>
   );

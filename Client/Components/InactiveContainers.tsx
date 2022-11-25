@@ -1,6 +1,13 @@
 import * as React from 'react';
 
-function InactiveContainers(props: { info: { ID: any; Names: any; }; }) {
+type Props = {
+    info: {
+        ID: string,
+        Names: string
+    }
+}
+
+function InactiveContainers(props: Props) {
     const { ID, Names } = props.info;
     return ( 
         <div className='flex flex-col items-center m-10 rounded overflow-hidden shadow-lg h-[250px] bg-stone-50 font-bold w-[300px]'>

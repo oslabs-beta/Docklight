@@ -1,12 +1,11 @@
-const express = require('express');
+import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import path from 'path';
+import containerRoute from './routes/ContainerRoute';
 const app = express();
-const path = require('path');
-const cors = require('cors');
-const containerRoute = require('./routes/ContainerRoute');
 
-const PORT = 3000;
+const PORT: number = 3000;
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
@@ -16,12 +15,12 @@ app.use((req, res, next) => {
 });
 
 //middleware to parse incoming requests
-app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 //send the main HTML to the client
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../Client/index.html'));
 });
 
@@ -32,12 +31,12 @@ app.use('/cont', containerRoute);
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
 //404 error handler
-app.use('*', (req, res) => {
+app.use('*', (req: Request, res: Response) => {
   res.status(404).send('Not found');
 });
 
 //global error handler
-app.use((err, req, res, next) => {
+app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,

@@ -1,5 +1,4 @@
 import * as React from "react";
-// import React, {FC} from 'react';
 
 const OverviewContainer = (props: any) => {
   return (

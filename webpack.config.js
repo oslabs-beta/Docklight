@@ -8,7 +8,7 @@ module.exports = {
       template: path.resolve(__dirname, './Client/index.html'),
       filename: 'index.html',
     })],
-  entry: './Client/index.js',
+  entry: './Client/index.tsx',
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
@@ -42,12 +42,18 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        use: ['ts-loader'],
-        exclude: /node_modules/,
-      }]
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-typescript'],
+          }
+        },
+        exclude: /node_modules/
+      }
+    ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   devServer: {
     proxy: {
