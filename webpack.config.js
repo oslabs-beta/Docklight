@@ -48,7 +48,10 @@ module.exports = {
       }]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    fallback: { 'http': false, 'browser': false, 'https': false, 
+      'stream': false, 'url': false, 'buffer': false, 'timers': false, 'zlib': false, assert: false
+    }
   },
   devServer: {
     proxy: {

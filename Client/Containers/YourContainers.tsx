@@ -3,9 +3,8 @@ const { useEffect, useState } = React;
 import Active from "../Components/Active";
 import Container from "../Components/Container";
 import SearchContainers from "../Components/SearchContainers";
-import axios from "axios";
 import InactiveContainers from "../Components/InactiveContainers";
-import type { MouseEventHandler, FC } from "react";
+import axios from "axios";
 
 //should render the active/inactive filter buttons/component (will leave functionality for when we have components rendering)
 //should render the search for container component

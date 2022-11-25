@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { promisify } from 'util';
 import { exec } from "child_process";
 const execProm = promisify(exec);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-const { useEffect, useState, useRef, useMemo, useCallback } = React;
+const { useEffect, useState, useRef } = React;
 import Chart from 'chart.js/auto';
 import type { ChartData, ChartOptions } from 'chart.js';
 import 'chartjs-adapter-luxon';

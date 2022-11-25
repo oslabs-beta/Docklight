@@ -1,4 +1,7 @@
 {
+    "include": [
+      "Docklight/**/*"
+    ],
     "compilerOptions": {
       "outDir": "./build/",
       "sourceMap": true,
@@ -7,9 +10,8 @@
       "target": "es6",
       "jsx": "react",
       "allowJs": true,
-      "strict": true,
       "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
+      //"allowSyntheticDefaultImports": true,
       "esModuleInterop": true
     }
   }
