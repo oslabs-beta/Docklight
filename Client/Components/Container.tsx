@@ -3,6 +3,7 @@ const { useEffect, useState } = React;
 import StatChart from '../Charts/StatChart';
 import LineChart from '../Charts/LineChart';
 import Loader from '../Utility/Loader';
+import { MouseEventHandler } from 'react';
 
 type Props = {
   info: {
@@ -10,6 +11,7 @@ type Props = {
     ID: string,
     Names: string,
   }
+  unmount: any
 };
 
 type DataBlock = {
@@ -43,8 +45,8 @@ export default function Container(props:Props) {
       <div className="grid grid-cols-3 gap-5 mt-2 ml-2 mb-8 font-semibold">
         <h1>Container Name: {Names}</h1>
         <h1>Container ID: {ID} </h1>
-        <button className="ml-auto mr-3 bg-red-400 w-[80px] h-[24px] rounded-lg font-medium">
-          Turn Off
+        <button onClick={() => props.unmount(props.info)} className="ml-auto mr-3 bg-red-400 w-[80px] h-[24px] rounded-lg font-medium">
+          Unmount
         </button>
       </div>
       {dataInfo.length === 0 ? 

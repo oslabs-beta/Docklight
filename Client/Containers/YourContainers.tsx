@@ -46,6 +46,22 @@ export default function YourContainers(){
     if (inactiveDisplay === true) setInactiveDisplay(false);
   }
 
+  function containerUnmount(currentCont: ContainerData) {
+    axios.post('cont/off', { ID: currentCont.ID })
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+    setList(contArray.filter(container => container.ID !== currentCont.ID))
+    setInactiveList((prevState) => [... prevState, currentCont])
+  }
+
+  function containerMount(currentCont: ContainerData){
+    axios.post('cont/on', { ID: currentCont.ID })
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+    setList((prevState) => [... prevState, currentCont])
+    setInactiveList(inactiveList.filter(container => container.ID !== currentCont.ID))
+  }
+
   return (
     <>
       <header className="flex h-[61px] border-b-2 border-black shadow-md">
@@ -54,18 +70,17 @@ export default function YourContainers(){
       </header>
       {inactiveDisplay
         ? 
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap overflow-auto h-[95%]'>
           {inactiveList.map((container: ContainerData) => (
             <>
-              <InactiveContainers key={`c${container.ID}`} info={container} />
-              <InactiveContainers key={`c${container.ID}`} info={container} />
+              <InactiveContainers key={`c${container.ID}`} info={container} mount={containerMount} />
             </>
           ))}
         </div>
         : 
         <div className="flex flex-col overflow-auto h-[95%] items-center">
           {contArray.map((container: ContainerData) => (
-            <Container key={`c${container.ID}`} info={container} />
+            <Container key={`c${container.ID}`} info={container} unmount={containerUnmount} />
           ))}
         </div>
       }
