@@ -1,13 +1,15 @@
 import React from 'react';
-// import userEvent from '@testing-library/user-event';
 import { render, screen, cleanup } from '@testing-library/react';
 // import Container from '../Client/Components/Container';
 
 // import App from '../Client/App';
 // import YourContainers from '../Client/Containers/YourContainers';
 // import DataOverview from '../Client/Containers/DataOverview';
-import Container from '../Client/Components/Container';
+import InactiveContainers from '../Client/Components/InactiveContainers';
+import TestContainer from './TestContainer';
 // import renderer from 'react-test-renderer';
+const jestdom = require('@testing-library/jest-dom');
+const jsdom = require('jest-environment-jsdom');
 
 describe('Testing rendering of our components', () => {
   describe('YourContainers should render containers correctly', () => {
@@ -30,15 +32,13 @@ describe('Testing rendering of our components', () => {
     ];
     const activeArr = [];
     const inactiveArr = [];
-    // beforeEach(() => {
-    //   return containers;
-    // }); 
+
     afterEach(() => {
       cleanup();
     })
+
+
     it('sorts active and inactive containers', () => {
-    //   const activeArr = [];
-    //   const inactiveArr = [];
       containers.forEach(dataObj => {
         if (dataObj.State === 'running') activeArr.push(dataObj);
         else inactiveArr.push(dataObj);
@@ -49,12 +49,27 @@ describe('Testing rendering of our components', () => {
 
     it('should render active containers', () => {
       activeArr.forEach(container => {
-        render(<Container key={`c${container.ID}`} info={container} dataID={container.ID} />);
+        render(<TestContainer key={`c${container.ID}`} info={container} testID={container.ID} />);
       });
       const container1 = screen.getByTestId('id1');
       const container2 = screen.getByTestId('id2');
+      expect(container1).toBeInTheDocument();
+      expect(container1).toHaveTextContent(`Container Name: ${activeArr[0].Names}`);
+      expect(container1).toHaveTextContent(`Container ID: ${activeArr[0].ID}`);
+      expect(container2).toBeInTheDocument();
+      expect(container2).toHaveTextContent(`Container Name: ${activeArr[1].Names}`);
+      expect(container2).toHaveTextContent(`Container ID: ${activeArr[1].ID}`);
     });
 
+    it('should render active containers', () => {
+      inactiveArr.forEach(container => {
+        render(<InactiveContainers key={`c${container.ID}`} info={container} testID={container.ID} />);
+      });
+      const container3 = screen.getByTestId('id3');
+      expect(container3).toBeInTheDocument();
+      expect(container3).toHaveTextContent(`Container Name: ${inactiveArr[0].Names}`);
+      expect(container3).toHaveTextContent(`Container ID: ${inactiveArr[0].ID}`);
+    });
     // xit('matches snapshot', () => {
             
     // });

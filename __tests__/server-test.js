@@ -8,18 +8,18 @@ const { Readable } = require('stream');
 
 describe('Testing GET request', () => {
 
-it('Testing DockerStatRequest', async () => {
-  const response = await request(server)
-  .get('/cont/fullstream')
-  console.log('response :', response)
-  expect(response.header)
-  server.close()
+  it('Testing DockerStatRequest', async () => {
+    const response = await request(server)
+      .get('/cont/fullstream');
+    console.log('response :', response);
+    expect(response.header);
+    server.close();
 
-})
+  });
 
 
 
-})
+});
 
 
 
@@ -153,3 +153,5 @@ it('Testing DockerStatRequest', async () => {
     
 //     });
 //   });
+
+
