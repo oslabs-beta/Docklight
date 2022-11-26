@@ -65,7 +65,7 @@ export default function YourContainers(){
         : 
         <div className="flex flex-col overflow-auto h-[95%] items-center">
           {contArray.map((container: ContainerData) => (
-            <Container key={`c${container.ID}`} info={container} dataID={`id${container.ID}`}/>
+            <Container key={`c${container.ID}`} info={container} dataID={`id${container.ID}`} />
           ))}
         </div>
       }

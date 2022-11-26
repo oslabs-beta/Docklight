@@ -6,7 +6,7 @@ import { render, screen, cleanup } from '@testing-library/react';
 // import App from '../Client/App';
 // import YourContainers from '../Client/Containers/YourContainers';
 // import DataOverview from '../Client/Containers/DataOverview';
-// import Container from '../Client/Components/Container';
+import Container from '../Client/Components/Container';
 // import renderer from 'react-test-renderer';
 
 describe('Testing rendering of our components', () => {
@@ -49,8 +49,10 @@ describe('Testing rendering of our components', () => {
 
     it('should render active containers', () => {
       activeArr.forEach(container => {
-        render(<Container key={`c${container.ID}`} info={container} data)
-      })
+        render(<Container key={`c${container.ID}`} info={container} dataID={container.ID} />);
+      });
+      const container1 = screen.getByTestId('id1');
+      const container2 = screen.getByTestId('id2');
     });
 
     // xit('matches snapshot', () => {
