@@ -1,6 +1,6 @@
 import Router, { Request, Response} from 'express';
 import { containerStreamController } from '../controllers/ContainerStreamController';
-import { containerMountController } from  '../controllers/ContainerMountController'
+import { containerMountController } from '../controllers/ContainerMountController';
 const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
