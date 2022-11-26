@@ -54,7 +54,7 @@ export default function YourContainers(){
       </header>
       {inactiveDisplay
         ? 
-        <div className='flex flex-wrap'>
+        <div className='flex flex-wrap overflow-auto h-[95%]'>
           {inactiveList.map((container: ContainerData) => (
             <>
               <InactiveContainers key={`c${container.ID}`} info={container} />
@@ -65,7 +65,7 @@ export default function YourContainers(){
         : 
         <div className="flex flex-col overflow-auto h-[95%] items-center">
           {contArray.map((container: ContainerData) => (
-            <Container key={`c${container.ID}`} info={container} />
+            <Container key={`c${container.ID}`} info={container} dataID={`id${container.ID}`}/>
           ))}
         </div>
       }
