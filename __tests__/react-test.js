@@ -37,7 +37,6 @@ describe('Testing rendering of our components', () => {
       cleanup();
     })
 
-
     it('sorts active and inactive containers', () => {
       containers.forEach(dataObj => {
         if (dataObj.State === 'running') activeArr.push(dataObj);
@@ -47,7 +46,7 @@ describe('Testing rendering of our components', () => {
       expect(inactiveArr.length).toBe(1);
     });
 
-    it('should render active containers', () => {
+    xit('should render active containers', () => {
       activeArr.forEach(container => {
         render(<TestContainer key={`c${container.ID}`} info={container} testID={container.ID} />);
       });
