@@ -15,7 +15,7 @@ const parseData = (stdout: string) => {
   }
   return containers;
 };
-export const containerController = {
+export const containerStreamController = {
 
   //middleware function that returns an actively updating array of all currently running containers through an event source interval
   dockerStatRequest: (req: Request, res: Response, next: NextFunction) => {
