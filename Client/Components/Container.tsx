@@ -41,7 +41,7 @@ export default function Container(props:Props) {
   }, []);
 
   return (
-    <div className="mt-[40px] mb-[10px] border-4 border-blue-400 rounded-lg h-[300px] w-[900px] shadow-lg" data-testid={`${props.dataID}`}>
+    <div className="mt-[40px] mb-[10px] border-4 border-blue-400 rounded-lg h-[300px] w-[900px] shadow-lg" >
       <div className="grid grid-cols-3 gap-5 mt-2 ml-2 mb-8 font-semibold">
         <h1>Container Name: {Names}</h1>
         <h1>Container ID: {ID} </h1>
