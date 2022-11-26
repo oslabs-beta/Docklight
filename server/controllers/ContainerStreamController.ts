@@ -30,6 +30,7 @@ export const containerStreamController = {
       console.log('hi from request', stdout);
       const data: string[] = parseData(stdout);
       const newData: string = JSON.stringify(data);
+      res.locals.dockerStat = newData;
       res.write('data: ' + newData + '\n\n');
     }, 1500);
 
@@ -55,6 +56,7 @@ export const containerStreamController = {
       console.log('hi from request by ID', stdout);
       const data: string[] = parseData(stdout);
       const newData: string = JSON.stringify(data);
+      res.locals.dockerStatById = newData;
       res.write('data: ' + newData + '\n\n');
     }, 1500);
 
