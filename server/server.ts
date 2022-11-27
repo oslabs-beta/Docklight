@@ -1,7 +1,7 @@
 import app from './app';
+//declare PORT here
+const PORT = 3000;
 
-const port = 3000;
-
-app.listen(port, () => {
-  console.log(`server listening at ${port}`);
+app.listen(PORT, () => {
+  console.log(`server listening at ${PORT}`);
 });

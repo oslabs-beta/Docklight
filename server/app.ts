@@ -3,6 +3,7 @@ import path from 'path';
 import containerRoute from './routes/ContainerRoute';
 const app = express();
 
+//settings any CORS headers to prevent CORS issues
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -13,7 +14,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 //middleware to parse incoming requests
-
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
