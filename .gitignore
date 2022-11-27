@@ -1,7 +1,2 @@
 node_modules
 build
-jest-setup.js
-jest-teardown.js
-jest-config.js
-postcss.config.js
-coverage
