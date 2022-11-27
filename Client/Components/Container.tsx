@@ -27,11 +27,13 @@ type DataInfo = DataBlock[];
 export default function Container(props:Props) {
   const { ID, Names } = props.info;
   const [dataInfo, setData] = useState<DataInfo>([]);
-  
+  const [change, setChange] = useState<boolean>(false);
+
   useEffect(() => {
-    const sse = new EventSource(`http://localhost:3000/cont/constream/?id=${ID}`);
+    const sse = new EventSource(`http://localhost:3000/cont/constream/?id=${ID}`)
     sse.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      setChange(prevState => !prevState)
       setData(data);
     };
     sse.onerror = () => sse.close();
@@ -70,7 +72,7 @@ export default function Container(props:Props) {
             <h1 className="flex justify-center mb-2">
             Network I/O: {dataInfo[0].NetIO}
             </h1>
-            <LineChart propData={dataInfo[0].NetIO} />
+            <LineChart propData={dataInfo[0].NetIO} change={change}/>
           </div>
         </div>
       }

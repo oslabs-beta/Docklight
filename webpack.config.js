@@ -56,12 +56,8 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   devServer: {
-    static: {
-      directory: path.join(__dirname, './build'),
-      publicPath: '/'
-    },
     proxy: {
-      '/': 'http://localhost:3000',
+      '/cont': 'http://localhost:3000',
     },
     compress: true,
     port: 8080,
