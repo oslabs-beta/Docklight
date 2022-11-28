@@ -109,7 +109,7 @@ export default function YourContainers(){
     }
   }
 
-  if (!error) {
+  if (!error && axiosComplete) {
     return (
       <>
         <header className="flex h-[61px] border-b-2 border-black shadow-md">
@@ -124,7 +124,7 @@ export default function YourContainers(){
         }
       </>
     )
-  } else {
+  } else if (error) {
     return <Error />
   };
 }
