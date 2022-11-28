@@ -5,6 +5,9 @@ import Container from "../Components/Container";
 import SearchContainers from "../Components/SearchContainers";
 import InactiveContainers from "../Components/InactiveContainers";
 import axios from "axios";
+import Error from '../Components/Error'
+import MissingContainers from '../Components/MissingContainers';
+
 
 //should render the active/inactive filter buttons/component (will leave functionality for when we have components rendering)
 //should render the search for container component
@@ -20,6 +23,8 @@ export default function YourContainers(){
   const [contArray, setList] = useState<ContainerData[]>([]);
   const [inactiveList, setInactiveList] = useState<ContainerData[]>([]);
   const [inactiveDisplay, setInactiveDisplay] = useState<boolean>(false);
+  const [error, setError] = useState(false);
+  const [axiosComplete, setComplete] = useState(false);
 
   useEffect(() => {
     axios("cont/list")
@@ -30,12 +35,16 @@ export default function YourContainers(){
         res.data.forEach((el:ContainerData) => {
           if (el.State === "running") runningArr.push(el);
           else inactiveArr.push(el);
-          console.log(el)
+          // console.log(el)
         });
         setList(runningArr);
         setInactiveList(inactiveArr);
+        setComplete(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log('error yo')
+        setError(true)
+      });
   }, []);
 
   function inactiveButton():void {
@@ -62,14 +71,27 @@ export default function YourContainers(){
     setInactiveList(inactiveList.filter(container => container.ID !== currentCont.ID))
   }
 
-  return (
-    <>
-      <header className="flex h-[61px] border-b-2 border-black shadow-md">
-        <Active inactive={inactiveButton} active={activeButton} isInactive={inactiveDisplay} />
-        <SearchContainers />
-      </header>
-      {inactiveDisplay
-        ? 
+  function activeRender(){
+    if (contArray.length !== 0){
+      return (
+      <div className="flex flex-col overflow-auto h-[95%] items-center">
+        {contArray.map((container: ContainerData) => (
+          <Container key={`c${container.ID}`} info={container} unmount={containerUnmount} testID={`${container.ID}`} />
+        ))}
+      </div>
+      )
+    } else {
+      if (axiosComplete) {
+        return (
+          <MissingContainers activeOrInactive="Active" />
+        )
+      }
+    }
+  }
+
+  function inactiveRender(){
+    if (inactiveList.length !== 0){
+      return(
         <div className='flex flex-wrap overflow-auto h-[95%]'>
           {inactiveList.map((container: ContainerData) => (
             <>
@@ -77,13 +99,32 @@ export default function YourContainers(){
             </>
           ))}
         </div>
-        : 
-        <div className="flex flex-col overflow-auto h-[95%] items-center">
-          {contArray.map((container: ContainerData) => (
-            <Container key={`c${container.ID}`} info={container} unmount={containerUnmount} testID={`${container.ID}`} />
-          ))}
-        </div>
+      )
+    } else {
+      if (axiosComplete){
+        return(
+          <MissingContainers activeOrInactive="Inactive" />
+        )
       }
-    </>
-  );
+    }
+  }
+
+  if (!error) {
+    return (
+      <>
+        <header className="flex h-[61px] border-b-2 border-black shadow-md">
+          <Active inactive={inactiveButton} active={activeButton} isInactive={inactiveDisplay} />
+          <SearchContainers />
+        </header>
+        {inactiveDisplay
+          ? 
+          inactiveRender()
+          : 
+          activeRender()
+        }
+      </>
+    )
+  } else {
+    return <Error />
+  };
 }
