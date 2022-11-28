@@ -32,7 +32,7 @@ module.exports = {
         include: path.resolve(__dirname, 'Client/style.css'),
         use: [
           'style-loader',
-          'css-loader',
+          {loader: 'css-loader', options: {importLoaders: 1}},
           'postcss-loader'
         ]
       },
