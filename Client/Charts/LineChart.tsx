@@ -10,6 +10,7 @@ Chart.register(ChartStreaming);
 
 type Props = {
   propData: string
+  change: boolean
 }
 type OurChartData = {
   datasets: {
@@ -27,12 +28,12 @@ type DataObj = {
 }
 
 export default function LineChart(props: Props) {
-  const { propData } = props;
+  const { propData, change } = props;
   const chart = useRef<Chart<'line'>>();
   const dataArr = dataSplit(propData);
 
 
-  const [chartData, setChartData] = useState<any>( {
+  const [chartData, setChartData] = useState<any>({
     datasets: [
       {
         label: ['Network Input'],
@@ -50,6 +51,7 @@ export default function LineChart(props: Props) {
   })
 
   useEffect(() => {
+    console.log(change)
     const newData = {
       value1: dataArr[0],
       value2: dataArr[1],
@@ -69,7 +71,7 @@ export default function LineChart(props: Props) {
         },
       ],
     }));
-  }, [chartData]);
+  }, [change]);
 
   function setData(dataObj: DataObj) {
     chart.current?.data.datasets[0].data.push({

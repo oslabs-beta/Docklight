@@ -5,7 +5,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './Client/index.html'),
+      template: path.join(__dirname, './Client/index.html'),
       filename: 'index.html',
     })],
   entry: './Client/index.tsx',
@@ -57,7 +57,7 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/cont': 'http://localhost:3000'
+      '/cont': 'http://localhost:3000',
     },
     compress: true,
     port: 8080,

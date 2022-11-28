@@ -3,18 +3,18 @@ import { promisify } from 'util';
 import { exec } from "child_process";
 const execProm = promisify(exec);
 
-//parsing data given to us by the docker CLI 
+//parsing data given to us by the docker CLI in order to have JSON that is consumable by the client
 const parseData = (stdout: string) => {
   const containers = [];
-  const dockerStats = stdout.trim();
-      
-  const conts = dockerStats.split('\n');
+  const dockerStats: string = stdout.trim();    
+  const conts: string[] = dockerStats.split('\n');
       
   for (let i = 0; i < conts.length; i++) {
     containers.push(JSON.parse(conts[i]));
   }
   return containers;
 };
+
 export const containerStreamController = {
 
   //middleware function that returns an actively updating array of all currently running containers through an event source interval
@@ -25,17 +25,17 @@ export const containerStreamController = {
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
     });
+    //interval is set here with async function that is called in order to keep data fresh as it is sent to front-end
     const interval = setInterval(async () => {
       const { stdout } = await execProm('docker stats --no-stream --format "{{json .}}"');
-      console.log('hi from request', stdout);
       const data: string[] = parseData(stdout);
       const newData: string = JSON.stringify(data);
+      res.locals.dockerStat = newData;
       res.write('data: ' + newData + '\n\n');
     }, 1500);
-
+    //closing the connection on the server-end
     res.on('close', () => {
-      console.log('client dropped me :((');
-      //Any other clean up
+      console.log('Client dropped');
       clearInterval(interval);
       res.end();
     });        
@@ -48,25 +48,24 @@ export const containerStreamController = {
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
     });
-    //grabs ID from url query
+    //grabs ID from url query and passes that in to the SSE interval 
     const { id } = req.query;
     const interval = setInterval(async () => {
       const { stdout } = await execProm(`docker stats --no-stream --format "{{json .}}" ${id}`);
-      console.log('hi from request by ID', stdout);
       const data: string[] = parseData(stdout);
       const newData: string = JSON.stringify(data);
+      res.locals.dockerStatById = newData;
       res.write('data: ' + newData + '\n\n');
     }, 1500);
 
     res.on('close', () => {
-      console.log('client dropped me :((');
-      //Any other clean up
       clearInterval(interval);
       res.end();
     });   
   },
   
   //function that grabs list of all docker containers, active or inactive
+    //sends back a new array of objects that only have properties that have relevance to front-end
   dockerContainers: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { stdout } = await execProm('docker ps --all --format "{{json .}}"');
@@ -77,7 +76,6 @@ export const containerStreamController = {
           State: container.State
         });
       });
-      console.log(newData);
       res.locals.containers = newData;
       return next();
     }

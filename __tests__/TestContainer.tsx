@@ -1,8 +1,8 @@
 import * as React from 'react';
 const { useEffect, useState } = React;
-import StatChart from '../Charts/StatChart';
-import LineChart from '../Charts/LineChart';
-import Loader from '../Utility/Loader';
+import StatChart from '../Client/Charts/StatChart';
+import LineChart from '../Client/Charts/LineChart';
+import Loader from '../Client/Utility/Loader'
 import { MouseEventHandler } from 'react';
 
 type Props = {
@@ -24,25 +24,10 @@ type DataBlock = {
 type DataInfo = DataBlock[];
 
 //will need to render individual components for CPU, MEM & Network IO
-export default function Container(props:Props) {
+export default function TestContainer(props:Props) {
   const { ID, Names } = props.info;
   const [dataInfo, setData] = useState<DataInfo>([]);
-  const [change, setChange] = useState<boolean>(false);
-
-  useEffect(() => {
-    const sse = new EventSource(`http://localhost:3000/cont/constream/?id=${ID}`)
-    sse.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setChange(prevState => !prevState)
-      setData(data);
-    };
-    sse.onerror = () => sse.close();
-    console.log('data info', dataInfo);
-    return () => {
-      sse.close();
-    };
-  }, []);
-
+  
   return (
     <div className="mt-[40px] mb-[10px] border-4 border-blue-400 rounded-lg h-[300px] w-[900px] shadow-lg" data-testid={`${props.testID}`}>
       <div className="grid grid-cols-3 gap-5 mt-2 ml-2 mb-8 font-semibold">
@@ -72,11 +57,10 @@ export default function Container(props:Props) {
             <h1 className="flex justify-center mb-2">
             Network I/O: {dataInfo[0].NetIO}
             </h1>
-            <LineChart propData={dataInfo[0].NetIO} change={change}/>
+            <LineChart propData={dataInfo[0].NetIO} />
           </div>
         </div>
       }
     </div>
   );
 }
-
