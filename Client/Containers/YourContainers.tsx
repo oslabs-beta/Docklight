@@ -25,6 +25,7 @@ export default function YourContainers(){
   const [inactiveDisplay, setInactiveDisplay] = useState<boolean>(false);
   const [error, setError] = useState(false);
   const [axiosComplete, setComplete] = useState(false);
+  const [filteredData, setFiltered] = useState<string>('');
 
   useEffect(() => {
     axios("cont/list")
@@ -75,7 +76,7 @@ export default function YourContainers(){
     if (contArray.length !== 0){
       return (
       <div className="flex flex-col overflow-auto h-[95%] items-center">
-        {contArray.map((container: ContainerData) => (
+        {contArray.filter((cont: ContainerData) => cont.Names.toLowerCase().includes(filteredData)).map((container: ContainerData) => (
           <Container key={`c${container.ID}`} info={container} unmount={containerUnmount} testID={`${container.ID}`} />
         ))}
       </div>
@@ -114,7 +115,7 @@ export default function YourContainers(){
       <>
         <header className="flex h-[61px] border-b-2 border-black shadow-md">
           <Active inactive={inactiveButton} active={activeButton} isInactive={inactiveDisplay} />
-          <SearchContainers />
+          <SearchContainers filteredData={filteredData} setFiltered={setFiltered} />
         </header>
         {inactiveDisplay
           ? 
