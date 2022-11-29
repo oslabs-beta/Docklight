@@ -18,27 +18,39 @@ const parseData = (stdout: string) => {
 export const containerStreamController = {
 
   //middleware function that returns an actively updating array of all currently running containers through an event source interval
-  dockerStatRequest: (req: Request, res: Response, next: NextFunction) => {
+  dockerStatRequest: async (req: Request, res: Response, next: NextFunction) => {
     //opens CLI command, grabs the return value, parses it and sends it back through the stream
-    res.writeHead(200, {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-    });
     //interval is set here with async function that is called in order to keep data fresh as it is sent to front-end
-    const interval = setInterval(async () => {
-      const { stdout } = await execProm('docker stats --no-stream --format "{{json .}}"');
-      const data: string[] = parseData(stdout);
-      const newData: string = JSON.stringify(data);
-      res.locals.dockerStat = newData;
-      res.write('data: ' + newData + '\n\n');
-    }, 1500);
-    //closing the connection on the server-end
-    res.on('close', () => {
-      console.log('Client dropped');
-      clearInterval(interval);
-      res.end();
-    });        
+    try {
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      const interval = setInterval(async () => {
+        try {
+          const { stdout } = await execProm('docker stats --no-stream --format "{{json .}}"');
+          res.status(200);
+          const data: string[] = parseData(stdout);
+          const newData: string = JSON.stringify(data);
+          res.write('data: ' + newData + '\n\n');
+        } catch(err) {
+          return next({
+            log: `error ${err} occurred in dockerStatRequest`,
+            message: {err: 'an error occured'}
+          });
+        }
+      }, 1500);
+//closing the connection on the server-end
+      res.on('close', () => {
+        console.log('Client dropped');
+        clearInterval(interval);
+        res.end();
+      });
+    } catch(err) {
+      return next({
+        log: `error ${err} occurred in dockerStatRequest`,
+        message: {err: 'an error occured'}
+      });
+    }        
   },
 
   //function that returns a single container by ID as an object in an actively updating array through an event source interval
@@ -54,7 +66,6 @@ export const containerStreamController = {
       const { stdout } = await execProm(`docker stats --no-stream --format "{{json .}}" ${id}`);
       const data: string[] = parseData(stdout);
       const newData: string = JSON.stringify(data);
-      res.locals.dockerStatById = newData;
       res.write('data: ' + newData + '\n\n');
     }, 1500);
 

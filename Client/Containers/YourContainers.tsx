@@ -23,8 +23,8 @@ export default function YourContainers(){
   const [contArray, setList] = useState<ContainerData[]>([]);
   const [inactiveList, setInactiveList] = useState<ContainerData[]>([]);
   const [inactiveDisplay, setInactiveDisplay] = useState<boolean>(false);
-  const [error, setError] = useState(false);
-  const [axiosComplete, setComplete] = useState(false);
+  const [error, setError] = useState<boolean>(false);
+  const [axiosComplete, setComplete] = useState<boolean>(false);
   const [filteredData, setFiltered] = useState<string>('');
 
   useEffect(() => {
@@ -36,7 +36,6 @@ export default function YourContainers(){
         res.data.forEach((el:ContainerData) => {
           if (el.State === "running") runningArr.push(el);
           else inactiveArr.push(el);
-          // console.log(el)
         });
         setList(runningArr);
         setInactiveList(inactiveArr);
