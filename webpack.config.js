@@ -57,7 +57,7 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/cont': 'http://localhost:3000',
+      '/': 'http://localhost:3000',
     },
     compress: true,
     port: 8080,

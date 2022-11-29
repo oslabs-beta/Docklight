@@ -20,7 +20,7 @@ type Container = {
 
 export default function DataOverview() {
   const [containersArray, setContainersArray] = useState<Container[]>([]);
-  const [error,setError] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const sse = new EventSource('http://localhost:3000/cont/fullstream');
@@ -29,8 +29,8 @@ export default function DataOverview() {
       setContainersArray(data);
     };
     sse.onerror = () => {
-      sse.close()
       setError(true)
+      return sse.close();
     }
     // console.log('data info', containersArray);
     return () => {
