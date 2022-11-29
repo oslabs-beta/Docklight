@@ -16,17 +16,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 //middleware to parse incoming requests
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static(path.resolve(__dirname, './images')))
 //send the main HTML to the client
 app.get('/', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../Client/index.html'));
 });
 
-
-
-app.get('/Team', (req: Request, res: Response) => {
-  res.status(200).sendFile(path.resolve(__dirname, './images'));
-})
 
 //send any requests from /cont endpoint through this route
 app.use('/cont', containerRoute);
