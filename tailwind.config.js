@@ -1,5 +1,6 @@
 
 module.exports = {
+  darkMode: 'class',
   content: ['./Client/**/*.{js,jsx,ts,tsx}'],
   theme: {  
     extend: {
