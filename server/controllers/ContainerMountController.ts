@@ -18,24 +18,24 @@ export const containerMountController = {
           return next({
             log: `error ${err} occurred in stopContainer`,
             message: {err: 'an error occured'}
-          });
+            });
         }
       },
   //similarly so for startContainer
     //same logic as above, only utilizing docker start to start the container
     startContainer: async (req: Request, res: Response, next: NextFunction) => {
-    const { ID } = req.body
-    try { 
-        const { stdout } = await execProm(`docker start ${ID}`);
-        console.log(stdout)
-        return next();
-    }
-    catch(err) {
-        return next({
-        log: `error ${err} occurred in dockerContainers`,
-        message: {err: 'an error occured'}
-        });
-    }
+        const { ID } = req.body
+        try { 
+            const { stdout } = await execProm(`docker start ${ID}`);
+            console.log(stdout)
+            return next();
+        }
+        catch(err) {
+            return next({
+            log: `error ${err} occurred in dockerContainers`,
+            message: {err: 'an error occured'}
+            });
+        }
     }
 
 }
