@@ -51,6 +51,7 @@
     "react-dom": "^18.2.0",
     "react-page-split": "^0.0.7",
     "react-router-dom": "^6.4.3",
+    "theme-change": "^2.2.0",
     "webpack": "^5.74.0",
     "webpack-dev-server": "^4.11.1"
   },

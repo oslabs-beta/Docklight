@@ -123,7 +123,7 @@ export default function LineChart(props: Props) {
               type: 'realtime',
               realtime: {
                 duration: 20000,
-                frameRate: 5,
+                frameRate: 20,
                 delay: 1000,
               },
             },

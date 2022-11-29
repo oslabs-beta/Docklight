@@ -4,6 +4,7 @@ import OverviewContainer from '../Components/OverviewContainer';
 import Notifications from '../Components/Notifications';
 import BarChart from '../Charts/BarChart';
 import Loader from '../Utility/Loader';
+import Error from '../Components/Error'
 
 type Container = {
   BlockIO: string
@@ -18,8 +19,8 @@ type Container = {
 }
 
 export default function DataOverview() {
-
   const [containersArray, setContainersArray] = useState<Container[]>([]);
+  const [error,setError] = useState(false);
 
   useEffect(() => {
     const sse = new EventSource('http://localhost:3000/cont/fullstream');
@@ -27,8 +28,11 @@ export default function DataOverview() {
       const data = JSON.parse(event.data);
       setContainersArray(data);
     };
-    sse.onerror = () => sse.close();
-    console.log('data info', containersArray);
+    sse.onerror = () => {
+      sse.close()
+      setError(true)
+    }
+    // console.log('data info', containersArray);
     return () => {
       sse.close();
     };
@@ -71,37 +75,40 @@ export default function DataOverview() {
     //   />,
     // );
   }
-
-  return (
-    <>
-      <div className="text-center p-5 h-[7%] items-center text-3xl font-bold underlined">
-        <header className="content-center">Data Overview</header>
-      </div>
-      {containersArray.length === 0
-        ? 
-        <Loader />
-        : (
-          <div className='overflow-auto'>
-            <div>
-              <BarChart data={containersArray.map(container => {
-                //const MemTotal = container.MemUsage.split(' / ')[1];
-                const BlockIn = container.BlockIO.split(' / ')[0];
-                const BlockOut = container.BlockIO.split(' / ')[1];
-                return ({
-                  CPUPerc: parseFloat(container.CPUPerc) * 10,
-                  MemPerc: parseFloat(container.MemPerc) * 10,
-                  BlockIn: parseFloat(BlockIn),
-                  BlockOut: parseFloat(BlockOut),
-                  // MemUsage: parseFloat(container.MemUsage),
-                  // MemTotal: parseFloat(MemTotal) * 1000 
-                });
-              })} />
+  if(!error) {
+    return (
+      <>
+        <div className="text-center p-5 h-[7%] items-center text-3xl font-bold underlined">
+          <header className="content-center">Data Overview</header>
+        </div>
+        {containersArray.length === 0
+          ? 
+          <Loader />
+          : (
+            <div className='overflow-auto'>
+              <div>
+                <BarChart data={containersArray.map(container => {
+                  //const MemTotal = container.MemUsage.split(' / ')[1];
+                  const BlockIn = container.BlockIO.split(' / ')[0];
+                  const BlockOut = container.BlockIO.split(' / ')[1];
+                  return ({
+                    CPUPerc: parseFloat(container.CPUPerc) * 10,
+                    MemPerc: parseFloat(container.MemPerc) * 10,
+                    BlockIn: parseFloat(BlockIn),
+                    BlockOut: parseFloat(BlockOut),
+                    // MemUsage: parseFloat(container.MemUsage),
+                    // MemTotal: parseFloat(MemTotal) * 1000 
+                  });
+                })} />
+              </div>
+              {/* <div className="border-t-4 h-[25%]">
+                <Notifications notifs={notifs} />git
+              </div> */}
             </div>
-            {/* <div className="border-t-4 h-[25%]">
-              <Notifications notifs={notifs} />git
-            </div> */}
-          </div>
-        )}
-    </>
-  );
+          )}
+      </>
+    )
+  } else {
+    return <Error />
+  };
 }
