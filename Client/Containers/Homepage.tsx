@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 export default function Homepage() {
+  // console.log(data-theme)
   return (
-    <div>      
+    <div className='' data-theme='dark'>      
       <h1>Welcome to Docklight</h1>
     <h2>Your Containers shows the individual CPU usage, memory usage, and Network I/O of currently active containers.</h2>
     <section></section>
