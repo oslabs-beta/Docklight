@@ -1,3 +1,4 @@
+
 module.exports = {
   content: ['./Client/**/*.{js,jsx,ts,tsx}'],
   theme: {  
@@ -9,14 +10,18 @@ module.exports = {
       colors: {
         'tailwind': '#0B1121',
       },
-      fontFamily: {
-        inter: ['"Inter"']
-      }
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('daisyui')],
+  daisyui: {
+    styled: true,
+    themes: ['light', 'dark'],
+    base: true,
+    utils: true,
+    logs: true
+  }
 };
   
