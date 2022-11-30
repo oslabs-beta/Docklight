@@ -8,38 +8,42 @@ const parseData = (stdout: string) => {
   const containers = [];
   const dockerStats: string = stdout.trim();    
   const conts: string[] = dockerStats.split('\n');
-      
+
   for (let i = 0; i < conts.length; i++) {
     containers.push(JSON.parse(conts[i]));
   }
+  //returns array of proper objects to then be stringified 
   return containers;
 };
 
 export const containerStreamController = {
-
   //middleware function that returns an actively updating array of all currently running containers through an event source interval
+
   dockerStatRequest: async (req: Request, res: Response, next: NextFunction) => {
-    //opens CLI command, grabs the return value, parses it and sends it back through the stream
-    //interval is set here with async function that is called in order to keep data fresh as it is sent to front-end
+    //each request is within try block to catch any potential errors
+      //using "setHeader" here instead of "writeHead" to prevent Headers Sent error
     try {
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
+    //interval is set here with async function that is called in order to keep data fresh as it is sent to front-end
       const interval = setInterval(async () => {
         try {
+          //opens CLI command, grabs the return value, parses it and sends it back through the stream
           const { stdout } = await execProm('docker stats --no-stream --format "{{json .}}"');
+          //if data returns properly, then we can set the status of the request and begin the process of writing the stream data
           res.status(200);
           const data: string[] = parseData(stdout);
           const newData: string = JSON.stringify(data);
           res.write('data: ' + newData + '\n\n');
         } catch(err) {
           return next({
-            log: `error ${err} occurred in dockerStatRequest`,
+            log: `error ${err} occurred in dockerStatRequest interval`,
             message: {err: 'an error occured'}
           });
         }
       }, 1500);
-//closing the connection on the server-end
+    //closing the connection on the server-end
       res.on('close', () => {
         console.log('Client dropped');
         clearInterval(interval);
@@ -54,7 +58,9 @@ export const containerStreamController = {
   },
 
   //function that returns a single container by ID as an object in an actively updating array through an event source interval
+    //here, this function is written slightly differently, since it will never fire if the containers are never returned by the axios request on the frontend 
   dockerStatRequestById: (req: Request, res: Response, next: NextFunction) => {
+    //set the headers and status immediately
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
@@ -62,6 +68,7 @@ export const containerStreamController = {
     });
     //grabs ID from url query and passes that in to the SSE interval 
     const { id } = req.query;
+    //set interval and grab data from CLI for stream
     const interval = setInterval(async () => {
       const { stdout } = await execProm(`docker stats --no-stream --format "{{json .}}" ${id}`);
       const data: string[] = parseData(stdout);
@@ -77,6 +84,7 @@ export const containerStreamController = {
   
   //function that grabs list of all docker containers, active or inactive
     //sends back a new array of objects that only have properties that have relevance to front-end
+    //this function sends an error to frontend that prompts the user to turn on docker desktop if it is not running
   dockerContainers: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { stdout } = await execProm('docker ps --all --format "{{json .}}"');
@@ -98,33 +106,3 @@ export const containerStreamController = {
     }
   }
 };
-
-
-
-
-//const { spawn }  = require('child_process');
-// Code for streaming w/ spawn vs an interval call
-//const dockerStat = spawn('docker', ['stats', '--format="{{json .}}"']);
-
-// router.get('/constream', async (req, res, next) => {
-//     //code that will grab the info from the docker cli
-//     try {
-//         dockerStat.stdout.on('data', data => {
-//             console.log(`${data}`);
-//             res.write(`data: ${data} \n\n`);
-//         })
-
-//         dockerStat.stderr.on('data', data => {
-//             console.log(`stderr: ${data}`);
-
-
-//     }
-//     catch(err) {
-//         next(err);
-//     }
-//     //await exec function reading the CLI following the input of `docker stats`
-//     //store this in a variable ?
-//         //send variable with data to front end
-//         //this function needs to call itself since it is part of the stream event 
-    
-// });
