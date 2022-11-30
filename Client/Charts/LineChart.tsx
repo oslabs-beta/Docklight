@@ -38,13 +38,13 @@ export default function LineChart(props: Props) {
       {
         label: ['Network Input'],
         data: [dataArr[0]],
-        backgroundColor: ['rgb(255, 99, 132)'],
+        backgroundColor: ['rgba(38, 189, 106, 0.75)'],
         spanGaps: true
       },
       {
         label: ['Network Output'],
         data: [dataArr[1]],
-        backgroundColor: ['rgb(255, 99, 000)'],
+        backgroundColor: ['rgba(221, 80, 105, 0.75)'],
         spanGaps: true
       },
     ],
@@ -63,11 +63,11 @@ export default function LineChart(props: Props) {
       datasets: [
         {
           ...prevState.datasets[0],
-          backgroundColor: ['rgb(255, 99, 132)'],
+          backgroundColor: ['rgba(38, 189, 106, 0.75)'],
         },
         {
           ...prevState.datasets[1],
-          backgroundColor: ['rgb(255, 99, 000)'],
+          backgroundColor: ['rgba(221, 80, 105, 0.75)'],
         },
       ],
     }));

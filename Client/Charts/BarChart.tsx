@@ -52,8 +52,8 @@ export default function BarChart(props: Props) {
     datasets: [ {
       label: 'Data 1',
       data: [BlockIn],
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(53, 53, 235, 0.75)',
+      borderColor: 'rgba(53, 53, 235)',
       borderWidth: 1,
     },
     {
@@ -73,15 +73,15 @@ export default function BarChart(props: Props) {
       datasets: [ {
         label: 'In / Out',
         data: [BlockIn],
-        backgroundColor: 'rgba(100, 200, 200, 0.2)',
-        borderColor: 'rgb(100, 200, 200)',
+        backgroundColor: 'rgba(53, 53, 235, 0.60)',
+        borderColor: 'rgba(53, 53, 235)',
         borderWidth: 1,
       },
       {
         label: 'Percentages',
         data: [BlockOut, CPUPerc, MemPerc],
-        backgroundColor: 'rgba(155, 255, 200, 0.2)',
-        borderColor: 'rgb(155, 255, 200)',
+        backgroundColor: 'rgba(75, 48, 232, 0.75)',
+        borderColor: 'rgb(75, 48, 232)',
         borderWidth: 1
       }
       ]
