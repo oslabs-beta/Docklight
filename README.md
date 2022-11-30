@@ -45,10 +45,45 @@ Run our application and view your data!
 Please submit a pull request or reach out to us if you're interested in improving **Docklight**!
 
 # Contributors
-* Luis Gomez
-* Anna Larouche
-* Dennis Park
-* Andrew Rama
+<ul>
+  <li>
+    Luis Gomez
+    <a href="https://www.linkedin.com/in/luisgomezo/" target="_blank">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
+    </a>
+      <a href="https://github.com/Luisortzg" target="_blank">
+      <img src="https://img.shields.io/badge/Github-0077B5?style=social&logo=github" />
+    </a>
+  </li>
+  <li>
+    Anna Larouche
+    <a href="https://www.linkedin.com/in/anna-larouche" target="_blank">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
+    </a>
+      <a href="https://github.com/amlarouche" target="_blank">
+      <img src="https://img.shields.io/badge/Github-0077B5?style=social&logo=github" />
+    </a>
+  </li>
+  <li>
+    Dennis Park
+    <a href="https://www.linkedin.com/in/dennishpark/" target="_blank">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
+    </a>
+      <a href="https://github.com/hdennispark" target="_blank">
+      <img src="https://img.shields.io/badge/Github-0077B5?style=social&logo=github" />
+    </a>
+  </li>
+  <li>
+    Andrew Rama
+    <a href="https://www.linkedin.com/in/andrew-rama-075b3a145/" target="_blank">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
+    </a>
+      <a href="https://github.com/RamaSaga" target="_blank">
+      <img src="https://img.shields.io/badge/Github-0077B5?style=social&logo=github" />
+    </a>
+  </li>
+  <li>
+</ul>
 
 # Resources
 Built using React, Typescript, and Tailwind
