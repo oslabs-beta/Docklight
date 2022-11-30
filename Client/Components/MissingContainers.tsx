@@ -1,9 +1,11 @@
 import * as React from 'react';
 
+//Props passed from YourContainers
 type Props = {
     activeOrInactive: string
 }
-//Will render generic text that differs whether used on the active or inactive page
+
+//Will render generic text that differs whether this component is rendered on the active or inactive page
 function MissingContainers(props:Props) {
     return (  
         <div className='flex flex-col pt-10 justify-center items-center'>

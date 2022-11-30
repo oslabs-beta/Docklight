@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+//Component purpose - Will render when Docker isn't open on a users PC - Or when there are no active containers
+    //for Data Overview
 function Error() {
     return ( 
         <div className='flex flex-col items-center h-[100%]'>

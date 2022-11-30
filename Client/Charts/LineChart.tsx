@@ -27,6 +27,7 @@ type DataObj = {
   timestamp: Date
 }
 
+//refer to https://www.chartjs.org/docs/latest/charts/line.html - Chart.js Line Chart doc
 export default function LineChart(props: Props) {
   const { propData, change } = props;
   const chart = useRef<Chart<'line'>>();
