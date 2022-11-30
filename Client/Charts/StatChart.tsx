@@ -41,8 +41,8 @@ export default function StatChart(props: Props) {
         label: 'Container Use Ratio',
         data: [newData, (100 - newData)],
         backgroundColor: [
+          'rgba(245, 40, 145, 0.75)',
           'rgba(75, 48, 232, 0.75)',
-          'rgba(53, 53, 235, 0.60)',
         ]
       }],
     });
