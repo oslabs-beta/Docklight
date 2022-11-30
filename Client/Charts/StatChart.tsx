@@ -10,6 +10,7 @@ type Props = {
 type ChartData = {
     labels: string[],
     datasets: {
+      label: string
       data: number[]
       backgroundColor: string[]
     }[],
@@ -22,6 +23,7 @@ export default function StatChart(props: Props) {
   const [chartData, setChartData] = useState<ChartData>({
     labels: ['Usage', 'Free Space'],
     datasets: [{
+      label: 'Container Use Ratio',
       data: [0, 0],
       backgroundColor: [
         'rgb(255, 99, 500)',
@@ -35,11 +37,11 @@ export default function StatChart(props: Props) {
     setChartData({
       labels: ['Usage', 'Free space'],
       datasets: [{
-
+        label: 'Container Use Ratio',
         data: [newData, (100 - newData)],
         backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
+          'rgba(245, 40, 145, 0.75)',
+          'rgba(75, 48, 232, 0.75)',
         ]
       }],
     });

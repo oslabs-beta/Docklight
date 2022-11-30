@@ -20,7 +20,7 @@ type Container = {
 
 export default function DataOverview() {
   const [containersArray, setContainersArray] = useState<Container[]>([]);
-  const [error,setError] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const sse = new EventSource('http://localhost:3000/cont/fullstream');
@@ -29,8 +29,8 @@ export default function DataOverview() {
       setContainersArray(data);
     };
     sse.onerror = () => {
-      sse.close()
       setError(true)
+      return sse.close();
     }
     // console.log('data info', containersArray);
     return () => {
@@ -85,8 +85,8 @@ export default function DataOverview() {
           ? 
           <Loader />
           : (
-            <div className='overflow-auto'>
-              <div>
+            <div className='grid justify-items-center mt-10'>
+            <div className='w-[80%] h-[80%]'>
                 <BarChart data={containersArray.map(container => {
                   //const MemTotal = container.MemUsage.split(' / ')[1];
                   const BlockIn = container.BlockIO.split(' / ')[0];
@@ -100,10 +100,8 @@ export default function DataOverview() {
                     // MemTotal: parseFloat(MemTotal) * 1000 
                   });
                 })} />
-              </div>
-              {/* <div className="border-t-4 h-[25%]">
-                <Notifications notifs={notifs} />git
-              </div> */}
+            </div>
+            <p className='mt-10 text-xl font-normal'>Above you can see the average Block In, CPU Usage and Memory Usage for all of your containers</p>
             </div>
           )}
       </>
@@ -112,3 +110,8 @@ export default function DataOverview() {
     return <Error />
   };
 }
+
+
+              // {/* <div className="border-t-4 h-[25%]">
+              //   <Notifications notifs={notifs} />git
+              // </div> */}
