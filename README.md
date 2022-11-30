@@ -75,7 +75,7 @@ Please submit a pull request or reach out to us if you're interested in improvin
   </li>
   <li>
     Andrew Rama
-    <a href="https://www.linkedin.com/in/" target="_blank">
+    <a href="https://www.linkedin.com/in/andrew-rama-075b3a145/" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=social&logo=linkedin" />
     </a>
       <a href="https://github.com/RamaSaga" target="_blank">
