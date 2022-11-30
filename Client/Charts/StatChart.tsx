@@ -38,8 +38,8 @@ export default function StatChart(props: Props) {
 
         data: [newData, (100 - newData)],
         backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
+          'rgba(75, 48, 232, 0.75)',
+          'rgba(53, 53, 235, 0.60)',
         ]
       }],
     });
