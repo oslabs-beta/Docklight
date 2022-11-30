@@ -8,7 +8,8 @@ type Props = {
   inactive: MouseEventHandler
 }
 
-
+//Props are passed down from YourContainers
+//Purpose - To filter between Active & Inactive containers
 export default function Active({ isInactive, active, inactive }: Props) {
   return (
     <div className="m-[12px]">

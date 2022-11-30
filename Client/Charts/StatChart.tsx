@@ -16,6 +16,7 @@ type ChartData = {
     }[],
 }
 
+//refer to https://www.chartjs.org/docs/latest/charts/doughnut.html - Chart.js Doughnut Chart
 export default function StatChart(props: Props) {
   let { propData } = props;
 

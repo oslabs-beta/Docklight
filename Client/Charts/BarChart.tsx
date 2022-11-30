@@ -29,6 +29,7 @@ type BarData = {
   datasets: Dataset[]
 }
 
+//refer to https://www.chartjs.org/docs/latest/charts/bar.html - Chart.js Bar Chart doc
 export default function BarChart(props: Props) {
   console.log('initial data', props.data);
   const newData:DataObject = props.data.reduce((acc: DataObject, curr: DataObject) => {
