@@ -52,7 +52,6 @@ export default function LineChart(props: Props) {
   })
 
   useEffect(() => {
-    console.log(change)
     const newData = {
       value1: dataArr[0],
       value2: dataArr[1],

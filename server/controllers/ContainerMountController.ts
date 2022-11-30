@@ -26,7 +26,6 @@ export const containerMountController = {
         const { ID } = req.body
         try { 
             const { stdout } = await execProm(`docker start ${ID}`);
-            console.log(stdout)
             return next();
         }
         catch(err) {

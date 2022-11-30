@@ -30,7 +30,7 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 
 //404 error handler
 app.use('*', (req: Request, res: Response) => {
-  res.status(404).send('Not found');
+  return res.status(404).send('Not found');
 });
 
 //global error handler
