@@ -126,6 +126,8 @@ export default function LineChart(props: Props) {
                 frameRate: 20,
                 delay: 1000,
               },
+              min: 0,
+              max: 100
             },
           },
           elements: {

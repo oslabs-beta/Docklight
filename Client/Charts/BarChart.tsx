@@ -106,6 +106,8 @@ export default function BarChart(props: Props) {
           scales: {
             x: {
               stacked: true,
+              min: 0,
+              max: 100
             },
           },
           indexAxis: 'y'
