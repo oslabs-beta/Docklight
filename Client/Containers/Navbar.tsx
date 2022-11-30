@@ -14,16 +14,17 @@ export default function Navbar() {
     themeChange(false);
   }, [])
   return (
-    <div className="flex flex-col items-center text-3xl font-bold bg-blue-50 dark:bg-blue:800 underlined w-[375px] max-w-[425px] border-r-4 shadow-lg">
+    <div className="flex flex-col items-center text-3xl font-bold underlined w-[375px] max-w-[425px] border-r-4 shadow-lg">
       <img className="logo" src={logo} alt="cute whale with lantern strapped to head" />
       {/* <header className="mt-5 text-5xl">
        Docklight 
       </header> */}
+      {/* added shadow to home page button, adjusting colors  */}
       <div className='flex h-screen flex-col space-y-8 text-center mt-[150px]'>
-        <Link to="/"className='bg-blue-700 hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 border-b-4 border-blue-500 hover:border-blue-400 rounded'> <button className=''>Home Page</button></Link>
-        <Link to="/DataOverview"className='bg-blue-700 hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 border-b-4 border-blue-500 hover:border-blue-500 rounded'> <button className=''>Data Overview</button></Link>
-        <Link to="/YourContainers"className='bg-blue-700 hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 border-b-4 border-blue-500 hover:border-blue-500 rounded' ><button className=''>Your Containers</button></Link>
-        <Link to="/Team" className='bg-blue-700 hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 border-b-4 border-blue-500 hover:border-blue-500 rounded'> <button className=''> Team</button></Link>
+        <Link to="/"className='btn btn-primary hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 drop-shadow-xl rounded'> <button className=''>Home Page</button></Link>
+        <Link to="/DataOverview"className='btn btn-primary hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 border-b-4 border-blue-500 hover:border-blue-500 rounded'> <button className=''>Data Overview</button></Link>
+        <Link to="/YourContainers"className='btn btn-primary hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 border-b-4 border-blue-500 hover:border-blue-500 rounded' ><button className=''>Your Containers</button></Link>
+        <Link to="/Team" className='btn btn-primary hover:bg-blue-500 text-white text-[20px] font-medium py-2 px-4 border-b-4 border-blue-500 hover:border-blue-500 rounded'> <button className=''> Team</button></Link>
       </div>
       <select className="select select-bordered w-full max-w-xs" data-choose-theme>
   <option disabled defaultChecked>Theme</option>
