@@ -52,8 +52,8 @@ export default function BarChart(props: Props) {
     datasets: [ {
       label: 'Data 1',
       data: [BlockIn],
-      backgroundColor: 'rgba(53, 53, 235, 0.75)',
-      borderColor: 'rgba(53, 53, 235)',
+      backgroundColor: 'rgba(245, 40, 145, 0.75)',
+      borderColor: 'rgba(245, 40, 145)',
       borderWidth: 1,
     },
     {
@@ -73,8 +73,8 @@ export default function BarChart(props: Props) {
       datasets: [ {
         label: 'Bytes In',
         data: [BlockIn],
-        backgroundColor: 'rgba(53, 53, 235, 0.60)',
-        borderColor: 'rgba(53, 53, 235)',
+        backgroundColor: 'rgba(245, 40, 145, 0.75)',
+        borderColor: 'rgba(245, 40, 145)',
         borderWidth: 1,
       },
       {
