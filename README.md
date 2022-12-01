@@ -82,7 +82,6 @@ Please submit a pull request or reach out to us if you're interested in improvin
       <img src="https://img.shields.io/badge/Github-0077B5?style=social&logo=github" />
     </a>
   </li>
-  <li>
 </ul>
 
 # Resources
