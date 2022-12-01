@@ -95,7 +95,7 @@ export default function YourContainers(){
   function inactiveRender(){
     if (inactiveList.length !== 0){
       return(
-        <div className='flex flex-wrap overflow-auto h-[95%]'>
+        <div className='flex flex-wrap overflow-auto h-auto'>
           {inactiveList.filter((cont: ContainerData) => cont.Names.toLowerCase().includes(filteredData)).map((container: ContainerData) => (
             <>
               <InactiveContainers key={`c${container.ID}`} info={container} mount={containerMount} testID={`${container.ID}`} />
@@ -112,7 +112,7 @@ export default function YourContainers(){
     }
   }
 
-  //For as long as there is no error (usually from Docker Desktop not running/failed axios request), load page & container data
+  //As long as there is no error (usually from Docker Desktop not running/failed axios request), load page & container data
   //By default - Active containers will display first, then change dependant on Active button clicks
   if (!error && axiosComplete) {
     return (

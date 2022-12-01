@@ -15,7 +15,7 @@ export const App = () => {
   return (
     <div className="flex h-screen overflow-hidden font-inter">
       <Navbar/>
-      <div className="testing w-screen" >
+      <div className="testing w-screen overflow-auto" >
         <Routes>
           <Route path='/YourContainers' element={<YourContainers/>} />
           <Route path='/DataOverview' element={<DataOverview/>} />
