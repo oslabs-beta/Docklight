@@ -31,7 +31,6 @@ type BarData = {
 
 //refer to https://www.chartjs.org/docs/latest/charts/bar.html - Chart.js Bar Chart doc
 export default function BarChart(props: Props) {
-  console.log('initial data', props.data);
   const newData:DataObject = props.data.reduce((acc: DataObject, curr: DataObject) => {
     acc.BlockIn += curr.BlockIn;
     acc.BlockOut += curr.BlockOut; 
@@ -68,7 +67,6 @@ export default function BarChart(props: Props) {
   });
 
   useEffect(() => {
-    console.log('heres data', props.data);
     setChartData({
       labels: ['Block In / BlockOut', 'CPU Usage', 'Memory Usage'],
       datasets: [ {

@@ -57,7 +57,6 @@ export default function DataOverview() {
             <div className='grid justify-items-center mt-10'>
             <div className='w-[80%] h-[80%]'>
                 <BarChart data={containersArray.map(container => {
-                  //const MemTotal = container.MemUsage.split(' / ')[1];
                   const BlockIn = container.BlockIO.split(' / ')[0];
                   const BlockOut = container.BlockIO.split(' / ')[1];
                   return ({
@@ -65,8 +64,6 @@ export default function DataOverview() {
                     MemPerc: parseFloat(container.MemPerc) * 10,
                     BlockIn: parseFloat(BlockIn),
                     BlockOut: parseFloat(BlockOut),
-                    // MemUsage: parseFloat(container.MemUsage),
-                    // MemTotal: parseFloat(MemTotal) * 1000 
                   });
                 })} />
             </div>

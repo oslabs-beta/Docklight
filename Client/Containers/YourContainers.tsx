@@ -31,7 +31,6 @@ export default function YourContainers(){
   useEffect(() => {
     axios("cont/list")
       .then((res) => {
-        console.log("this is res.data -> ", res.data);
         const runningArr:ContainerData[] = [];
         const inactiveArr:ContainerData[] = [];
         res.data.forEach((el:ContainerData) => {
@@ -43,7 +42,6 @@ export default function YourContainers(){
         setComplete(true);
       })
       .catch((err) => {
-        console.log('error yo')
         setError(true)
       });
   }, []);
