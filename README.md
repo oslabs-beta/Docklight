@@ -5,8 +5,8 @@
               margin-left: auto;
               margin-right: auto;
               "
-        src="Client/assets/docklightlogo-removebg.png" 
-        height=200
+        src="Client/assets/docklightlogo.png" 
+        height=300
         alt="Docklight">
     </img>
   </a>
