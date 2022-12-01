@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+//info will be the Container data needed for display
+//Mount - function from YourContainers - On button click, will activate/mount the selected container
+//testID - used for Jest to give the component unique testID's for react testing
 type Props = {
     info: {
         ID: string,
@@ -9,6 +12,8 @@ type Props = {
     testID: string
 }
 
+//Props passed from YourContainers
+//Purpose - Will render unique cards after clicking on the inactive button
 function InactiveContainers(props: Props) {
     const { ID, Names } = props.info;
     return ( 

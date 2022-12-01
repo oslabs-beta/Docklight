@@ -5,7 +5,6 @@ const execProm = promisify(exec);
 
 
 export const containerMountController = {
-
   //function to stop container
     //we grab the ID from the request body to asynchronously use the docker CLI to stop that particular container
     stopContainer: async (req: Request, res: Response, next: NextFunction) => {
@@ -27,12 +26,11 @@ export const containerMountController = {
         const { ID } = req.body
         try { 
             const { stdout } = await execProm(`docker start ${ID}`);
-            console.log(stdout)
             return next();
         }
         catch(err) {
             return next({
-            log: `error ${err} occurred in dockerContainers`,
+            log: `error ${err} occurred in startContainers`,
             message: {err: 'an error occured'}
             });
         }

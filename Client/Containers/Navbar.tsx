@@ -16,7 +16,6 @@ export default function Navbar() {
   return (
     <div className="flex flex-col bg-base-200 dark:bg-base-100 items-center text-3xl font-bold underlined w-[375px] max-w-[425px] shadow-lg">
       <img className="logo" src={logo} alt="cute whale with lantern strapped to head" />
-      {/* added shadow to home page button, adjusting colors  */}
       <div className='flex h-screen flex-col space-y-8 text-center mt-[150px]'>
         <Link to="/"className='btn btn-primary hover:bg-secondary hover:border-secondary antialiased text-white text-[20px] font-medium py-2 px-4 drop-shadow-md rounded'> <button className=''>Home</button></Link>
         <Link to="/DataOverview"className='btn btn-primary hover:bg-secondary hover:border-secondary antialiased text-white text-[20px] font-medium py-2 px-4 rounded'> <button className=''>Data Overview</button></Link>

@@ -27,6 +27,7 @@ type DataObj = {
   timestamp: Date
 }
 
+//refer to https://www.chartjs.org/docs/latest/charts/line.html - Chart.js Line Chart doc
 export default function LineChart(props: Props) {
   const { propData, change } = props;
   const chart = useRef<Chart<'line'>>();
@@ -38,20 +39,19 @@ export default function LineChart(props: Props) {
       {
         label: ['Network Input'],
         data: [dataArr[0]],
-        backgroundColor: ['rgb(255, 99, 132)'],
+        backgroundColor: ['rgba(38, 189, 106, 0.75)'],
         spanGaps: true
       },
       {
         label: ['Network Output'],
         data: [dataArr[1]],
-        backgroundColor: ['rgb(255, 99, 000)'],
+        backgroundColor: ['rgba(221, 80, 105, 0.75)'],
         spanGaps: true
       },
     ],
   })
 
   useEffect(() => {
-    console.log(change)
     const newData = {
       value1: dataArr[0],
       value2: dataArr[1],
@@ -63,11 +63,11 @@ export default function LineChart(props: Props) {
       datasets: [
         {
           ...prevState.datasets[0],
-          backgroundColor: ['rgb(255, 99, 132)'],
+          backgroundColor: ['rgba(38, 189, 106, 0.75)'],
         },
         {
           ...prevState.datasets[1],
-          backgroundColor: ['rgb(255, 99, 000)'],
+          backgroundColor: ['rgba(221, 80, 105, 0.75)'],
         },
       ],
     }));

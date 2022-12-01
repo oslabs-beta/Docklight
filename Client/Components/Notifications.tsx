@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+//Props passed from DataOverview - Dropped feature that was a WIP, was displaying notifications if a container's
+  //CPU/MEM usage was really high
 export default function Notifications(props: any) {
     console.log(props.notifs)
   return (
