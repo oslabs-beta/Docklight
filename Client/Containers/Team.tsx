@@ -12,8 +12,8 @@ export default function Team() {
     <div className="card w-[28rem] bg-base-100 shadow-xl flex-2 h-[40rem] md:top-[1.5rem] 2xl:top-[3rem]">
   <figure><img className='min-w-[31.7rem] max-w-[32rem]' src={annaPhoto} alt="Shoes" /></figure>
   <div className="card-body">
-    <h2 className="card-title">Anna</h2>
-    <p>perdi mi tren de pensamiento</p>
+    <h2 className="card-title">Anna Larouche</h2>
+    <p>Software Engineer</p>
     <div className="card-actions grid">
     <a className="btn btn-primary" href='https://github.com/amlarouche'>Github</a>
       <a className="btn btn-primary" href='https://www.linkedin.com/in/anna-larouche'>LinkedIn</a>
@@ -23,8 +23,8 @@ export default function Team() {
 <div className="card w-[28rem] bg-base-100 shadow-xl flex-2 h-[40rem] md:top-[1.5rem] 2xl:top-[3rem]">
   <figure><img className='min-w-[31.7rem] max-w-[32rem]' src={ramaPhoto} alt="Shoes" /></figure>
   <div className="card-body">
-    <h2 className="card-title">Rama</h2>
-    <p>Been robbed more than once in spain lol</p>
+    <h2 className="card-title">Andrew Rama</h2>
+    <p>Software Engineer</p>
     <div className="card-actions grid">
     <a className="btn btn-primary" href='https://github.com/RamaSaga'>Github</a>
       <a className="btn btn-primary" href='https://www.linkedin.com/in/andrew-rama-075b3a145/'>LinkedIn</a>
@@ -34,8 +34,8 @@ export default function Team() {
 <div className="card w-[28rem] bg-base-100 shadow-xl flex-2 h-[40rem] md:top-[1.5rem] 2xl:top-[3rem] ">
   <figure><img className='min-w-[31.7rem] max-w-[32rem]' src={dennisPhoto} alt="Shoes" /></figure>
   <div className="card-body">
-    <h2 className="card-title">Dennis</h2>
-    <p>nandebayo ? oni chan </p>
+    <h2 className="card-title">Dennis Park</h2>
+    <p>Software Engineer</p>
     <div className="card-actions grid">
     <a className="btn btn-primary" href='https://github.com/hdennispark'>Github</a>
       <a className="btn btn-primary" href='https://www.linkedin.com/in/dennishpark/'>LinkedIn</a>
@@ -45,8 +45,8 @@ export default function Team() {
 <div className="card w-[28rem] bg-base-100 shadow-xl flex-2 h-[40rem] md:top-[1.5rem] 2xl:top-[3rem] max-w-7xl">
   <figure><img className='min-w-[31.7rem] max-w-[32rem]' src={luisPhoto} alt="Luis Photo" /></figure>
   <div className="card-body">
-    <h2 className="card-title">Luis</h2>
-    <p>how did he even got into codesmith lol</p>
+    <h2 className="card-title">Luis Gomez</h2>
+    <p>Software Engineer</p>
     <div className="card-actions grid">
     <a className="btn btn-primary" href='https://github.com/Luisortzg'>Github</a>
       <a className="btn btn-primary" href='https://www.linkedin.com/in/luisgomezo/'>LinkedIn</a>

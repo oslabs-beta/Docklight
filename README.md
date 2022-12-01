@@ -1,5 +1,27 @@
-# Docklight
-## Metrics made easy
+<h1 align="center">
+  <a href="https://docklight.dev" target="_blank">
+    <img 
+        style="display: block; 
+              margin-left: auto;
+              margin-right: auto;
+              "
+        src="Client/assets/docklightlogo.png" 
+        height=300
+        alt="Docklight">
+    </img>
+  </a>
+</h1>
+
+<h3 align="center"><strong>A GUI for your Docker container metrics</strong></h3>
+
+<div align="center">
+  <a href="https://docklight.dev" target="_blank">
+    <img src="https://img.shields.io/badge/website-docklight-teal.svg" />
+  </a>
+  <img alt="license" src="https://img.shields.io/badge/License-MIT-green.svg">
+  <img alt="last-commit" src="https://img.shields.io/github/last-commit/oslabs-beta/docklight?color=orange">
+</div>
+<br/>
 
 **Docklight** is a container metrics monitoring solution that makes organizing, monitoring, and visualizing your metrics easy. The Docklight GUI interface is clean, easy to understand, and provides you with all of the information you need to manage and monitor your Docker containers outside of the Docker Desktop.
 
@@ -7,9 +29,21 @@
 
 After installing **Docklight**, you can run it natively on your localhost. The application will speak to your Docker Daemon and provide you with real-time, live-streamed data in charts that update as your data changes.
 
+<p align="center">
+  <img src="Client/assets/individualgif.gif" width="600px" margin="auto"/>
+</p>
+
 ## Get a micro and macro view of your data
 
 With **Docklight**, you can see an overall average of your data in addition to tracking the metrics of your individual containers. You also have the option of viewing your containers sorted by active and inactive, and starting and stopping them with the click of a button from within the GUI. 
+
+<p align="center">
+  <img src="Client/assets/overviewgif.gif" width="600px" margin="auto"/>
+</p>
+
+<p align="center">
+  <img src="Client/assets/conimage.png" width="600px" margin="auto"/>
+</p>
 
 # How to get **Docklight**
 
@@ -82,7 +116,6 @@ Please submit a pull request or reach out to us if you're interested in improvin
       <img src="https://img.shields.io/badge/Github-0077B5?style=social&logo=github" />
     </a>
   </li>
-  <li>
 </ul>
 
 # Resources
