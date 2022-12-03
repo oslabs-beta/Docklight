@@ -1,13 +1,15 @@
 {
     "compilerOptions": {
-      "outDir": "./build/",
+      "outDir": "build",
       "sourceMap": true,
       "noImplicitAny": true,
-      "module": "es6",
-      "target": "es5",
+      "module": "commonjs",
+      "target": "ES6",
       "jsx": "react",
       "allowJs": true,
       "strict": true,
-      "moduleResolution": "node"
-    }
+      "moduleResolution": "node",
+      "esModuleInterop": true
+    },
+    "exclude": ["node_modules"]
   }

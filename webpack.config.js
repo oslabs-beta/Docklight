@@ -5,12 +5,13 @@ module.exports = {
   mode: process.env.NODE_ENV,
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './Client/index.html'),
+      template: path.join(__dirname, './Client/index.html'),
       filename: 'index.html',
     })],
   entry: './Client/index.tsx',
   output: {
     path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
     filename: 'bundle.js',
   },
   devtool: 'eval-source-map',
@@ -31,7 +32,7 @@ module.exports = {
         include: path.resolve(__dirname, 'Client/style.css'),
         use: [
           'style-loader',
-          'css-loader',
+          {loader: 'css-loader', options: {importLoaders: 1}},
           'postcss-loader'
         ]
       },
@@ -41,16 +42,26 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        use: ['ts-loader'],
-        exclude: /node_modules/,
-      }]
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-typescript'],
+          }
+        },
+        exclude: /node_modules/
+      }
+    ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   devServer: {
-    proxy: {},
+    proxy: {
+      '/cont': 'http://localhost:3000',
+      '/build': 'http://localhost:3000'
+    },
     compress: true,
     port: 8080,
+    historyApiFallback: true
   }
 };
