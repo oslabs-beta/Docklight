@@ -12,7 +12,7 @@ function Error() {
                 <ul className='text-center text-1xl mt-2'>
                     <li>Open an issue via Github by clicking <a href='https://github.com/oslabs-beta/Docklight/issues' className='text-sky-400' target='_blank'>here</a></li>
                     <li>Include your OS, Docker Desktop version and any other details you may find useful</li>
-                    <li>We'll look to fix it as soon as possible!</li>
+                    <li>We'll look to fix it as soon as possible!!</li>
                 </ul>
             </div>            
         </div>
