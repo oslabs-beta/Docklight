@@ -11,17 +11,17 @@ router.get('/fullstream', containerStreamController.dockerStatRequest);
 
 //route that allows container to be turned off
 router.post('/off', containerMountController.stopContainer, (req: Request, res: Response) => {
-  res.status(200).send('off success')
+  return res.status(200).send('off success')
 });
 
 //route to turn containers on
 router.post('/on', containerMountController.startContainer, (req: Request, res: Response) => {
-  res.status(200).send('on success')
+  return res.status(200).send('on success')
 });
 
 //route to return list of containers 
 router.get('/list', containerStreamController.dockerContainers, (req: Request, res: Response) => {
-  res.status(200).json(res.locals.containers);
+  return res.status(200).json(res.locals.containers);
 });
 
 export default router;
