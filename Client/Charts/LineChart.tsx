@@ -94,7 +94,7 @@ export default function LineChart(props: Props) {
     stringArr.forEach((el) => {
       let numEl: number;
       if (el.includes('mB')) {
-        numEl = parseFloat(el)
+        numEl = parseFloat(el) * 1000
       }
       if (el.includes('kB')) {
         numEl = parseFloat(el);
