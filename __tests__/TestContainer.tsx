@@ -27,6 +27,7 @@ type DataInfo = DataBlock[];
 export default function TestContainer(props:Props) {
   const { ID, Names } = props.info;
   const [dataInfo, setData] = useState<DataInfo>([]);
+  const [change, setChange] = useState<boolean>(false);
   
   return (
     <div className="mt-[40px] mb-[10px] border-4 border-blue-400 rounded-lg h-[300px] w-[900px] shadow-lg" data-testid={`${props.testID}`}>
@@ -57,7 +58,7 @@ export default function TestContainer(props:Props) {
             <h1 className="flex justify-center mb-2">
             Network I/O: {dataInfo[0].NetIO}
             </h1>
-            <LineChart propData={dataInfo[0].NetIO} />
+            <LineChart propData={dataInfo[0].NetIO} change={change}/>
           </div>
         </div>
       }
